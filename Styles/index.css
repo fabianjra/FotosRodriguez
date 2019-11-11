@@ -1,0 +1,18 @@
+.imgLogoNav{
+    width: 40px;
+    border-radius: 50%;
+}
+
+  .carousel-inner > .carousel-item > img {
+    height:500px;
+    object-fit: cover;
+  }
+
+/*Solo para tamaños de 767px o menos*/
+@media (Max-width: 767px){
+
+    .carousel-inner > .carousel-item > img {
+        height:300px;
+        object-fit: cover;
+      }
+}
