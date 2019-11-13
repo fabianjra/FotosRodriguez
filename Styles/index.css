@@ -1,11 +1,32 @@
-.imgLogoNav{
+.imgLogoNavTop{
     width: 40px;
     border-radius: 50%;
+    transition:  0.3s;
+}
+
+.imgLogoNavDown{
+  width: 25px;
+  border-radius: 50%;
+  transition:  0.3s;
 }
 
   .carousel-inner > .carousel-item > img {
     height:500px;
     object-fit: cover;
+  }
+  .navbar{
+    /* opacity: 0.9; */
+    background-color: rgba(0, 0, 0, 0.7) !important;
+  }
+
+  .tituloLabelNormal{
+    font-size: normal;
+    transition: 0.3s;
+  }
+
+  .tituloLabelSmall{
+    font-size: small;
+    transition: 0.3s;
   }
 
 /*Solo para tamaños de 767px o menos*/
