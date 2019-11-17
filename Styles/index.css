@@ -1,32 +1,30 @@
-.imgLogoNavTop{
-    width: 40px;
-    border-radius: 50%;
-    transition:  0.3s;
+body{
+  font-family: 'Montserrat', sans-serif;
 }
 
-.imgLogoNavDown{
-  width: 25px;
-  border-radius: 50%;
-  transition:  0.3s;
+.imgLogoNav{
+    width: 35px;
+    border-radius: 50%;
 }
 
   .carousel-inner > .carousel-item > img {
     height:500px;
     object-fit: cover;
   }
+
   .navbar{
     /* opacity: 0.9; */
-    background-color: rgba(0, 0, 0, 0.7) !important;
+    background-color: rgba(0, 0, 0, 0.6) !important;
   }
 
-  .tituloLabelNormal{
-    font-size: normal;
-    transition: 0.3s;
-  }
-
-  .tituloLabelSmall{
-    font-size: small;
-    transition: 0.3s;
+  /* Para aplicar este fondo: se debe agregar al padre Position-relative*/
+  .oscurecerImagen{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
   }
 
 /*Solo para tamaños de 767px o menos*/
