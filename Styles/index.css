@@ -27,11 +27,46 @@ body{
     background: rgba(0, 0, 0, 0.4);
   }
 
-/*Solo para tamaños de 767px o menos*/
+  .colorNegro{
+    background-color: rgba(0, 0, 0, 1) !important;
+    transition: all 1s;
+  }
+
+  .colorFooter{
+    background-color: #242424;
+  }
+
+  section > div > div > .img-fluid{
+    height: 300px;
+    object-fit: cover;
+  }
+
+
+
+/*Solo para tamaños de 767px o menos (momento al ocultarse links del navbar*/
 @media (Max-width: 767px){
 
+    /* Menor altura estatica para las imagenes del carousel */
     .carousel-inner > .carousel-item > img {
         height:300px;
         object-fit: cover;
       }
+
+      /* Correr a la izquierda el texto */
+      .carousel-inner > .carousel-item .carousel-caption {
+        left: 2%;
+        width: 95%;
+      }
+
+      /* Ocultar texto del carousel al ser dispositivos pequenos */
+      .carousel-inner > .carousel-item .carousel-caption p{
+        /* display: none; */
+      }
+}
+
+/*Solo para tamaños de 364px o menos (No se ajusta correctamente el carousel*/
+@media (Max-width: 364px){
+    .carousel-inner{
+      display: none;
+    }
 }
