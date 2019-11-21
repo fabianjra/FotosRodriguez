@@ -3,16 +3,6 @@ $(document).ready(function () {
     $('#agregarMasterNavbar').load('MasterNavbar.html', AsignarPaginaActual);
 
     $('#agregarMasterFooter').load('MasterFooter.html');
-    
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153083935-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-153083935-1');
-    </script>
 });
 
 //ToggleClass agrega la clase si no la tiene, y si ya la tiene la remueve (como un tipo interruptor)
