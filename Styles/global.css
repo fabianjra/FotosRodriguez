@@ -1,0 +1,42 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+  
+
+/***** ESTILOS PARA EL NAVBAR *****/
+
+/* Forma redonda y pequenas, a las imagenes del Navbar */
+.imgLogoNav{
+    width: 35px;
+    border-radius: 50%;
+}
+
+/* Transparencia en color negro al Navbar */
+.navbar{
+    /* opacity: 0.9; */
+    background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Transicion a color negro, al oprimir el boton del navbar (compacto) */
+.colorNegro{
+    background-color: rgba(0, 0, 0, 1) !important;
+    transition: all 1s;
+}
+
+/***** FIN: ESTILOS PARA EL NAVBAR *****/
+
+
+/***** ESTILOS PARA EL FOOTER *****/
+
+.colorFooter{
+    background-color: #242424;
+}
+
+/***** FIN: ESTILOS PARA EL FOOTER *****/
+
+/*Solo para tamaños de 767px o menos (momento al ocultarse links del navbar*/
+@media (Max-width: 767px){
+    .ocultarPequeno{
+        display: none;
+    }
+}

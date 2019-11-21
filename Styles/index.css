@@ -1,23 +1,10 @@
-body{
-  font-family: 'Montserrat', sans-serif;
-}
-
-.imgLogoNav{
-    width: 35px;
-    border-radius: 50%;
-}
-
   .carousel-inner > .carousel-item > img {
     height:500px;
     object-fit: cover;
   }
 
-  .navbar{
-    /* opacity: 0.9; */
-    background-color: rgba(0, 0, 0, 0.6) !important;
-  }
-
   /* Para aplicar este fondo: se debe agregar al padre Position-relative*/
+  /* Oscurece la imagen de los carousel, para que se noten mas las letras que estan encima */
   .oscurecerImagen{
     position: absolute;
     left: 0;
@@ -27,15 +14,7 @@ body{
     background: rgba(0, 0, 0, 0.4);
   }
 
-  .colorNegro{
-    background-color: rgba(0, 0, 0, 1) !important;
-    transition: all 1s;
-  }
-
-  .colorFooter{
-    background-color: #242424;
-  }
-
+  /* Para las imagenes del carousel, hace un relleno, cortando lo de afuera de la imagen */
   section > div > div > .img-fluid{
     height: 300px;
     object-fit: cover;

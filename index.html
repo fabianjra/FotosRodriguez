@@ -11,7 +11,10 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 
     <!-- ESTILOS PROPIOS -->
+    <link rel="stylesheet" href="Styles/global.css">
     <link rel="stylesheet" href="Styles/index.css">
+
+    <!-- ICONO PARA EL NAVICON -->
     <link rel='icon' href='Resources/Navbar/imgLogoFotoRodriguez.jpg' type='image/x-icon' sizes="16x16">
 
     <!-- FUENTE PARA LETRAS -->
@@ -21,59 +24,7 @@
 </head>
 
 <body>
-
-    <!-- BARRA DE NAVEGACION -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-
-        <label class="navbar-brand mb-0 h1">
-            <img src="Resources/Navbar/imgLogoFotoRodriguez.jpg" class="d-inline-block imgLogoNav" alt="">
-            <label class="">Foto Rodriguez</label>
-        </label>
-
-        <button onclick="clickBotonNavbar()" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Inicio<span class="sr-only">(current)</span></a>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Productos
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Fotos</a>
-                        <a class="dropdown-item" href="#">Retablos</a>
-                        <a class="dropdown-item" href="#">Restauración de fotografías</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Jarras</a>
-                    </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contacto</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Acerca de</a>
-                </li>
-            </ul>
-
-            <form class="form-inline my-2 my-lg-0">
-                <a class="navbar-brand" href="https://www.facebook.com/fotosguapiles/" target="_blank">
-                    <img src="Resources/Navbar/imgLogoFacebook.png" class="d-inline-block imgLogoNav" alt="">
-                </a>
-            </form>
-        </div>
-    </nav>
-    <!-- FIN: BARRA DE NAVEGACION -->
+    <div id="agregarMasterNavbar"></div>
 
     <!-- INICIO DE CAROUSEL -->
     <div class="carousel slide carousel-fade" data-ride="carousel">
@@ -150,92 +101,7 @@
     </div>
     <!-- FIN: CONTAINER DE LA PAGINA -->
 
-
-    <!-- FOOTER -->
-    <footer class="pt-4 colorFooter text-light">
-
-        <!-- Footer Links -->
-        <div class="container text-center">
-
-            <!-- Footer links -->
-            <div class="row text-center text-md-left mt-3 pb-3">
-
-                <!-- Grid column -->
-                <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
-                    <h6 class="text-uppercase mb-4 font-weight-bold">Foto Rodriguez</h6>
-                    <p>Nos especializamos en fotografia digital, eventos, graduaciones y paquetes de graduación
-                        para todos los grados escolares.
-                    </p>
-                </div>
-                <!-- Grid column -->
-
-                <hr class="w-100 clearfix d-md-none">
-
-                <!-- Grid column -->
-                <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
-                    <h6 class="text-uppercase mb-4 font-weight-bold">Productos</h6>
-                    <p>
-                        <a href="#">Fotos</a>
-                    </p>
-                    <p>
-                        <a href="#">Retablos</a>
-                    </p>
-                    <p>
-                        <a href="#">Restauración digital de fotografías</a>
-                    </p>
-                    <p>
-                        <a href="#">Jarras</a>
-                    </p>
-                </div>
-                <!-- Grid column -->
-
-                <hr class="w-100 clearfix d-md-none">
-
-                <!-- Grid column -->
-                <hr class="w-100 clearfix d-md-none">
-
-                <!-- Grid column -->
-                <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
-                    <h6 class="text-uppercase mb-4 font-weight-bold">Contacto</h6>
-                    <p>
-                        <i class="fas fa-home"></i>Guápiles, Costa Rica</p>
-                    <p>
-                        <i class="fas fa-envelope"></i>Correo@hotmail.com</p>
-                    <p>
-                        <i class="fas fa-phone"></i>+506 0000-0000</p>
-                    <p>
-                        <i class="fas fa-print"></i>+506 0000-0000</p>
-                </div>
-                <!-- Grid column -->
-
-            </div>
-            <!-- Footer links -->
-
-            <hr>
-
-            <!-- Grid row -->
-            <div class="row d-flex align-items-center">
-
-                <!-- Grid column -->
-                <div class="col-12">
-
-                    <!--Copyright-->
-                    <p class="text-center">© 2019 Todos los derechos reservados.</p>
-
-                </div>
-                <!-- Grid column -->
-
-            </div>
-            <!-- Grid row -->
-
-        </div>
-        <!-- Footer Links -->
-
-    </footer>
-    <!-- FIN: FOOTER -->
-
-
-
+    <div id="agregarMasterFooter"></div>
 
     <!-- FIN: BODY -->
 
@@ -246,7 +112,7 @@
     <script src="bootstrap/js/bootstrap.min.js"></script>
 
     <!-- SCRIPTS PROPIOS -->
-    <script src="Scripts/index.js"></script>
+    <script src="Scripts/global.js"></script>
 
     <!-- INICIAR SCTRIPTS EN LINEA -->
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
