@@ -1,12 +1,8 @@
 $(document).ready(function () {
 
-    $('#agregarMasterNavbar').load('MasterNavbar.html');
+    $('#agregarMasterNavbar').load('MasterNavbar.html', AsignarPaginaActual);
+
     $('#agregarMasterFooter').load('MasterFooter.html');
-
-    // document.onload = AsignarPaginaActual();
-
-    var elemento = document.getElementById("navbarItemInicio");
-    console.log(elemento);
 });
 
 //ToggleClass agrega la clase si no la tiene, y si ya la tiene la remueve (como un tipo interruptor)
@@ -34,7 +30,6 @@ function AsignarPaginaActual() {
     switch (ActualID) {
         case '0':
             var elemento = document.getElementById("navbarItemInicio");
-            console.log(elemento);
             elemento.classList.add("active");
             break;
 
@@ -45,7 +40,6 @@ function AsignarPaginaActual() {
 
         default:
             var elemento = document.getElementById("navbarItemInicio");
-            console.log(elemento);
             elemento.classList.add("active");
             break;
     }
