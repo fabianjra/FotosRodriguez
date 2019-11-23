@@ -1,8 +1,18 @@
+/***** ESTILOS PARA LA CARGA INICIAL DE LA PAGINA *****/
 body{
     font-family: 'Montserrat', sans-serif;
 }
-  
 
+@font-face {
+    font-family: "Montserrat";
+    font-weight: 400;
+    src: url("../Resources/Fonts/Montserrat-Regular.ttf");
+}
+
+/***** FIN: ESTILOS PARA LA CARGA INICIAL DE LA PAGINA *****/
+
+/******************************************************************************/
+  
 /***** ESTILOS PARA EL NAVBAR *****/
 
 /* Forma redonda y pequenas, a las imagenes del Navbar */
@@ -25,6 +35,7 @@ body{
 
 /***** FIN: ESTILOS PARA EL NAVBAR *****/
 
+/******************************************************************************/
 
 /***** ESTILOS PARA EL FOOTER *****/
 
@@ -33,6 +44,8 @@ body{
 }
 
 /***** FIN: ESTILOS PARA EL FOOTER *****/
+
+/******************************************************************************/
 
 /*Solo para tamaños de 767px o menos (momento al ocultarse links del navbar*/
 @media (Max-width: 767px){

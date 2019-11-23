@@ -1,25 +1,32 @@
-  .carousel-inner > .carousel-item > img {
-    height:500px;
-    object-fit: cover;
-  }
+.opactidadCero{
+  opacity: 0;
+}
 
-  /* Para aplicar este fondo: se debe agregar al padre Position-relative*/
-  /* Oscurece la imagen de los carousel, para que se noten mas las letras que estan encima */
-  .oscurecerImagen{
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-  }
+.loadingPage{
+  animation: fadeCargarPagina 1s;
+}
+  
+.carousel-inner > .carousel-item > img {
+  height:500px;
+  object-fit: cover;
+}
 
-  /* Para las imagenes del carousel, hace un relleno, cortando lo de afuera de la imagen */
-  section > div > div > .img-fluid{
-    height: 300px;
-    object-fit: cover;
-  }
+/* Para aplicar este fondo: se debe agregar al padre Position-relative*/
+/* Oscurece la imagen de los carousel, para que se noten mas las letras que estan encima */
+.oscurecerImagen{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
 
+/* Para las imagenes del carousel, hace un relleno, cortando lo de afuera de la imagen */
+section > div > div > .img-fluid{
+  height: 300px;
+  object-fit: cover;
+}
 
 
 /*Solo para tamaños de 767px o menos (momento al ocultarse links del navbar*/
@@ -48,4 +55,13 @@
     .carousel-inner{
       display: none;
     }
+}
+
+@keyframes fadeCargarPagina {
+  from{
+      opacity: 0;
+  }
+  to{
+      opacity: 1;
+  }
 }

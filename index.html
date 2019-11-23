@@ -8,22 +8,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- BOOTSTRAP 4.3.1 -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type='text/css'>
 
     <!-- ESTILOS PROPIOS -->
-    <link rel="stylesheet" href="Styles/global.css">
-    <link rel="stylesheet" href="Styles/index.css">
+    <link rel="stylesheet" href="Styles/global.css" type='text/css'>
+    <link rel="stylesheet" href="Styles/index.css" type='text/css'>
 
     <!-- ICONO PARA EL NAVICON -->
-    <link rel='icon' href='Resources/Navbar/imgLogoFotoRodriguez.jpg' type='image/x-icon' sizes="16x16">
+    <link rel='icon' href='Resources/Navbar/imgLogoFotoRodriguez.jpg' sizes="16x16" type='image/x-icon'>
 
     <!-- FUENTE PARA LETRAS -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" type='text/css'>
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" type='text/css'> -->
 
-    <title>Foto Rodriguez</title>
+    <title>Fotos Rodriguez</title>
 </head>
 
-<body>
+<body id="bodyIndex" class="opactidadCero">
+
     <div id="agregarMasterNavbar"></div>
 
     <!-- INICIO DE CAROUSEL -->
@@ -97,7 +98,6 @@
         </section>
 
 
-
     </div>
     <!-- FIN: CONTAINER DE LA PAGINA -->
 
@@ -113,6 +113,7 @@
 
     <!-- SCRIPTS PROPIOS -->
     <script src="Scripts/global.js"></script>
+    <script src="Scripts/index.js"></script>
 
     <!-- INICIAR SCTRIPTS EN LINEA -->
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -135,12 +136,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153083935-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', 'UA-153083935-1');
     </script>
-    
 
 </body>
 
