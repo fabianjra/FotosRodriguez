@@ -8,10 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- BOOTSTRAP 4.3.1 -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type='text/css'>
 
     <!-- ESTILOS PROPIOS -->
-    <link rel="stylesheet" href="Styles/global.css">
+    <link rel="stylesheet" href="Styles/global.css" type='text/css'>
+    <link rel="stylesheet" href="Styles/contacto.css" type='text/css'">
 
     <!-- ICONO PARA EL NAVICON -->
     <link rel='icon' href='Resources/Navbar/imgLogoFotoRodriguez.jpg' type='image/x-icon' sizes="16x16">
@@ -25,11 +26,41 @@
 
     <!-- INICIO DEL CONTAINER DE LA PAGINA -->
     <div class="container">
-        <section class="row">
+        <div class="row">
+            <div class="col-12 mt-5 pt-5">
+                <p>¿Deseas más información? Puedes enviarnos un email y te responderemos lo más pronto posible.</p>
+            </div>
+        </div>
 
-            <div class="col-12" style="height: 400px; padding-top: 100px;">En construccion</div>
+        <div class="row">
 
-        </section>
+            <div class="col-12 col-md-6 col-lg-6">
+                <form>
+                    <div class="form-group">
+                        <label for="txtNombre" class="font-weight-bold">Nombre</label>
+                        <input type="text" class="form-control" id="txtNombre" placeholder="Escribe tu nombre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtEmail" class="font-weight-bold">Correo electrónico</label>
+                        <input type="email" class="form-control" id="txtEmail" aria-describedby="emailHelp"
+                            placeholder="Escribe tu correo electrónico" required>
+                        <small id="emailHelp" class="form-text text-muted">Tu correo no será compartido</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtComentario">Comentarios</label>
+                        <textarea class="form-control" id="txtComentario"
+                            placeholder="Escribe aquí tus dudas o comentarios" required></textarea>
+                        <div class="invalid-feedback">El comentario es requerido</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark">Enviar</button>
+                    <small class="form-text text-muted mb-5">Actualmente el envio de correos se encuentra en construccion</small>
+                </form>
+
+            </div>
+        </div>
 
     </div>
     <!-- FIN: CONTAINER DE LA PAGINA -->
@@ -45,17 +76,17 @@
 
     <!-- SCRIPTS PROPIOS -->
     <script src="Scripts/global.js"></script>
-    
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153083935-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', 'UA-153083935-1');
     </script>
-    
+
 </body>
 
 </html>
