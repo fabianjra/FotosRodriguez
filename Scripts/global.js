@@ -5,6 +5,7 @@
 //Constantes para los nombres de las paginas
 const _index = 'index';
 const _contacto = 'contacto';
+const _preciosArticulos = 'preciosArticulos';
 
 //Carga el Navbar y al momento despues de cargarla, ejecuta la funcion para marcar el Active correcto del Navbar
 $('#agregarMasterNavbar').load('MasterNavbar.html', ObtenerPaginaActual);
@@ -52,6 +53,11 @@ function AsignarNavbarPaginaActual(pNombrePagina) {
 
         case _contacto:
             var elemento = document.getElementById("navbarItemContacto");
+            elemento.classList.add("active");
+            break;
+
+        case _preciosArticulos:
+            var elemento = document.getElementById("navbarItemPrecios");
             elemento.classList.add("active");
             break;
 

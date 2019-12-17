@@ -1,0 +1,50 @@
+{
+    "precios": [
+        {
+            "foto": [
+                {
+                    "tamano": "4x6",
+                    "precio": "1500"
+                },
+                {
+                    "tamano": "6x8",
+                    "precio": "2000"
+                },
+                {
+                    "tamano": "8x10",
+                    "precio": "2500"
+                },
+                {
+                    "tamano": "11x14",
+                    "precio": "3000"
+                },
+                {
+                    "tamano": "16x20",
+                    "precio": "3500"
+                }
+            ],
+            "retablo": [
+                {
+                    "tamano": "4x6",
+                    "precio": "3500"
+                },
+                {
+                    "tamano": "6x8",
+                    "precio": "5500"
+                },
+                {
+                    "tamano": "8x10",
+                    "precio": "7500"
+                },
+                {
+                    "tamano": "11x14",
+                    "precio": "9500"
+                },
+                {
+                    "tamano": "16x20",
+                    "precio": "1200"
+                }
+            ]
+        }
+    ]
+}
