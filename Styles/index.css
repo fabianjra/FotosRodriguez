@@ -50,8 +50,8 @@ section > div > div > .img-fluid{
       }
 }
 
-/*Solo para tamaños de 364px o menos (No se ajusta correctamente el carousel*/
-@media (Max-width: 364px){
+/*Solo para tamaños de 329px o menos (No se ajusta correctamente el carousel*/
+@media (Max-width: 329px){
     .carousel-inner{
       display: none;
     }
