@@ -16,6 +16,9 @@ function clickBotonNavbar() {
     $(".navbar").toggleClass("colorNegro");
 };
 
+//Al realizar cualquier carga de pagina, se consulta el URL de la direccion actual
+//y se obtiene solamente el nombre de la pagina, en base a este nombre, se asigna como
+// actual, a la pagina correcta en el Navbar, como seleccion.
 function ObtenerPaginaActual() {
 
     var segmento = window.location.pathname.split('/');

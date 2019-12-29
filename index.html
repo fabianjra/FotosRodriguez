@@ -27,7 +27,13 @@
     <div id="agregarMasterNavbar"></div>
 
     <!-- INICIO DE CAROUSEL -->
-    <div class="carousel slide carousel-fade" data-ride="carousel">
+    <div id="carouselMain" class="carousel slide carousel-fade" data-ride="carousel">
+
+        <ol class="carousel-indicators">
+            <li data-target="#carouselMain" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselMain" data-slide-to="1"></li>
+            <li data-target="#carouselMain" data-slide-to="2"></li>
+        </ol>
 
         <div class="carousel-inner">
             <div class="carousel-item active position-relative">
@@ -60,7 +66,7 @@
                     <h3>Retablos fotográficos</h3>
                     <p>Creamos retablos de diferentes medidas para su gusto, con la foto o imagen que desee.
                     </p>
-                    <button type="button" class="btn btn-light">Ver más</button>
+                    <button type="button" class="btn btn-light" onclick="location.href = '/preciosArticulos.html';">Ver más</button>
                 </div>
             </div>
 
