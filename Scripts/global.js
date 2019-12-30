@@ -1,11 +1,23 @@
-// $(document).ready(function () {
+$(document).ready(function () {
 
-// });
+    //Se carga la configuración de google Analytics, de manera global para cada pagina
+    CargarGoolgeAnalytics();
+});
+
+//Funcion que consulta la pagina para enviarla a google Analytics.
+function CargarGoolgeAnalytics() {
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-153083935-1');
+};
 
 //Constantes para los nombres de las paginas
 const _index = 'index';
 const _contacto = 'contacto';
 const _preciosArticulos = 'preciosArticulos';
+const _catalogoGraduacion = 'catalogoGraduacion';
 
 //Carga el Navbar y al momento despues de cargarla, ejecuta la funcion para marcar el Active correcto del Navbar
 $('#agregarMasterNavbar').load('MasterNavbar.html', ObtenerPaginaActual);
@@ -41,7 +53,7 @@ function ObtenerPaginaActual() {
     var nombreCorto = nombreConHTML.split('.')[0];
 
     AsignarNavbarPaginaActual(nombreCorto);
-}
+};
 
 
 function AsignarNavbarPaginaActual(pNombrePagina) {
@@ -64,6 +76,11 @@ function AsignarNavbarPaginaActual(pNombrePagina) {
             elemento.classList.add("active");
             break;
 
+        case _catalogoGraduacion:
+            var elemento = document.getElementById("navbarItemCatalogoGraduacion");
+            elemento.classList.add("active");
+            break;
+
         //Si no se encuentra la pagina, asigna el active al inicio (esto en caso de ser solamente el URL del sitio. ejem: www.fotosrodriguez.com)
         default:
             var elemento = document.getElementById("navbarItemInicio");
@@ -71,7 +88,6 @@ function AsignarNavbarPaginaActual(pNombrePagina) {
             break;
     }
 };
-
 
 
 
