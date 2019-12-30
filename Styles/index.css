@@ -50,11 +50,18 @@ section > div > div > .img-fluid{
       }
 }
 
-/*Solo para tamaños de 329px o menos (No se ajusta correctamente el carousel*/
-@media (Max-width: 329px){
+/*Solo para tamaños de 299px o menos (No se ajusta correctamente el carousel, entonces se quita)*/
+@media (Max-width: 299px){
     .carousel-inner{
       display: none;
     }
+}
+
+/*Solo para tamaños de 340px o menos (No se ajusta correctamente el carousel, entonces se oculta el boton)*/
+@media (Max-width: 340px){
+  .btn{
+    display: none;
+  }
 }
 
 @keyframes fadeCargarPagina {
