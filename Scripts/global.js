@@ -16,8 +16,8 @@ function CargarGoolgeAnalytics() {
 //Constantes para los nombres de las paginas
 const _index = 'index';
 const _contacto = 'contacto';
-const _preciosArticulos = 'preciosArticulos';
-const _catalogoGraduacion = 'catalogoGraduacion';
+const _preciosArticulos = 'preciosarticulos';
+const _catalogoGraduacion = 'catalogograduacion';
 
 //Carga el Navbar y al momento despues de cargarla, ejecuta la funcion para marcar el Active correcto del Navbar
 $('#agregarMasterNavbar').load('MasterNavbar.html', ObtenerPaginaActual);
