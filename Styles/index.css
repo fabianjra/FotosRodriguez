@@ -28,6 +28,15 @@ section > div > div > .img-fluid{
   object-fit: cover;
 }
 
+/* Convierte las lineas de los indicadores del carousel en puntos */
+.carousel-indicators li {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 
 /*Solo para tamaños de 767px o menos (momento al ocultarse links del navbar*/
 @media (Max-width: 767px){

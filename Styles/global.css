@@ -11,8 +11,10 @@ body{
 
 /***** FIN: ESTILOS PARA LA CARGA INICIAL DE LA PAGINA *****/
 
+
 /******************************************************************************/
   
+
 /***** ESTILOS PARA EL NAVBAR *****/
 
 /* Forma redonda y pequenas, a las imagenes del Navbar */
@@ -38,9 +40,26 @@ body{
     cursor: pointer;
 }
 
+/*Cambiar el color del dropdown, para hacerlo igual al navbar (negro) */
+.navbar-nav .show .dropdown-menu {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+/*Cambiar el color del texto de cada item en el dropdown*/
+#navbarItemPrecios > .dropdown-menu > a{
+    color: #FFFFFF;
+}
+
+/*Cambiar el color al fondo del hover, para no hacerlo tan claro*/
+#navbarItemPrecios > .dropdown-menu > a:hover{
+    background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
 /***** FIN: ESTILOS PARA EL NAVBAR *****/
 
+
 /******************************************************************************/
+
 
 /***** ESTILOS PARA EL FOOTER *****/
 
@@ -50,11 +69,11 @@ body{
 
 /***** FIN: ESTILOS PARA EL FOOTER *****/
 
+
 /******************************************************************************/
 
-/*Solo para tamaños de 767px o menos (momento al ocultarse links del navbar*/
+
+/*Solo para tamaños de 767px o menos (momento al ocultarse links del navbar)*/
 @media (Max-width: 767px){
-    .ocultarPequeno{
-        display: none;
-    }
+   
 }
