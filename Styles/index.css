@@ -37,7 +37,6 @@ section > div > div > .img-fluid{
   margin-right: 5px;
 }
 
-
 /*Solo para tamaños de 767px o menos (momento al ocultarse links del navbar*/
 @media (Max-width: 767px){
 
