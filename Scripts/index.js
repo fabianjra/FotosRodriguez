@@ -1,3 +1,7 @@
 $(document).ready(function () {
-    window.onload = $('body').addClass('loadingPage').removeClass('opactidadCero');
+    try {
+        window.onload = $('body').addClass('loadingPage').removeClass('opactidadCero');
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
 });

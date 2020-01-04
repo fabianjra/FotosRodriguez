@@ -6,11 +6,15 @@ $(document).ready(function () {
 
 //Funcion que consulta la pagina para enviarla a google Analytics.
 function CargarGoolgeAnalytics() {
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+    try {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-    gtag('config', 'UA-153083935-1');
+        gtag('config', 'UA-153083935-1');
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
 };
 
 //Constantes para los nombres de las paginas
@@ -32,27 +36,31 @@ function clickBotonNavbar() {
 //y se obtiene solamente el nombre de la pagina, en base a este nombre, se asigna como
 // actual, a la pagina correcta en el Navbar, como seleccion.
 function ObtenerPaginaActual() {
+    try {
+        var segmento = window.location.pathname.split('/');
+        var borrar = [];
 
-    var segmento = window.location.pathname.split('/');
-    var borrar = [];
-
-    for (let i = 0; i < borrar.length; i++) {
-        if (segmento[i].length < 1) {
-            borrar.push(i);
+        for (let i = 0; i < borrar.length; i++) {
+            if (segmento[i].length < 1) {
+                borrar.push(i);
+            }
         }
+
+        for (let i = 0; i < borrar.length; i++) {
+            segmento.splice(i, 1);
+        }
+
+        //Obtiene el nombre de la pagina, junto con el .html y todo lo que contenga despues del ultimo slash "/" (ejem: index.html, o: index.html?p=0)
+        var nombreConHTML = segmento[segmento.length - 1];
+
+        //Obtiene el nombre de la pagina, antes del .html (ejem: index)
+        var nombreCorto = nombreConHTML.split('.')[0];
+
+        AsignarNavbarPaginaActual(nombreCorto);
+
+    } catch (ex) {
+        uEscribirError(arguments, ex);
     }
-
-    for (let i = 0; i < borrar.length; i++) {
-        segmento.splice(i, 1);
-    }
-
-    //Obtiene el nombre de la pagina, junto con el .html y todo lo que contenga despues del ultimo slash "/" (ejem: index.html, o: index.html?p=0)
-    var nombreConHTML = segmento[segmento.length - 1];
-
-    //Obtiene el nombre de la pagina, antes del .html (ejem: index)
-    var nombreCorto = nombreConHTML.split('.')[0];
-
-    AsignarNavbarPaginaActual(nombreCorto);
 };
 
 
