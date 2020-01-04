@@ -37,8 +37,8 @@ section > div > div > .img-fluid{
   margin-right: 5px;
 }
 
-/*Solo para tamaños de 767px o menos (momento al ocultarse links del navbar*/
-@media (Max-width: 767px){
+/*Solo para tamaños de 767px o menos (momento al ocultarse links del navbar) */
+@media (max-width: 767px){
 
     /* Menor altura estatica para las imagenes del carousel */
     .carousel-inner > .carousel-item > img {
@@ -59,14 +59,14 @@ section > div > div > .img-fluid{
 }
 
 /*Solo para tamaños de 299px o menos (No se ajusta correctamente el carousel, entonces se quita)*/
-@media (Max-width: 299px){
+@media (max-width: 299px){
     .carousel-inner{
       display: none;
     }
 }
 
 /*Solo para tamaños de 340px o menos (No se ajusta correctamente el carousel, entonces se oculta el boton)*/
-@media (Max-width: 340px){
+@media (max-width: 340px){
   .btn{
     display: none;
   }

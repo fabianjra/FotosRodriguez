@@ -55,6 +55,15 @@ body{
     background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
+/*Solo para tamaños de 991px o mas (momento al cambiarse de links a menu hamburguesa)*/
+@media (min-width: 991px){
+
+    /* Coloca hacia abajo el menu del dropdown, para que quede alineado con el NavBar */
+    .dropdown-menu{
+        margin: .7rem 0 0;
+    }
+}
+
 /***** FIN: ESTILOS PARA EL NAVBAR *****/
 
 
@@ -67,12 +76,12 @@ body{
     background-color: #242424;
 }
 
+/* Enlace de color verde para el hover (links del footer) */
+div > p > a:hover{
+    color: #17a2b8 !important;
+}
+
 /***** FIN: ESTILOS PARA EL FOOTER *****/
 
 
 /******************************************************************************/
-
-
-/*Solo para tamaños de 767px o menos (momento al ocultarse links del navbar)*/
-@media (Max-width: 767px){
-}
