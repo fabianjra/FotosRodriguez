@@ -37,6 +37,21 @@ section > div > div > .img-fluid{
   margin-right: 5px;
 }
 
+/* Al posicionarse sobre alguno de los enlaces de contacto, se usa un fondo gris */
+.fondoGrisHover:hover{
+  background-color: #f8f9fa;
+}
+
+/* Hace color negro las letras de la seccion de contacto (se ponen azules por el tag 'a' de enlace) */
+.fondoGrisHover > a > h5, .fondoGrisHover > a > p{
+  color: #000000;
+}
+
+/* Quita el Underline de los textos al posicionarse sobre ellos */
+.fondoGrisHover > a{
+  text-decoration: none;
+}
+
 /*Solo para tamaños de 767px o menos (momento al ocultarse links del navbar) */
 @media (max-width: 767px){
 

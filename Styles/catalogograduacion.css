@@ -1,0 +1,14 @@
+/* Centra el navegador de la pagiancion */
+.dataTables_paginate  > .pagination{
+    justify-content: center !important;
+}
+
+/*Solo para tamaños de 768px o mas (momento al usar COL-SM)*/
+@media (min-width: 768px){
+
+    /* Ajusta a la derecha el campo de buscar, para que no se salga de la alineación de la tabla */
+    .dataTables_filter > label{
+        float: right !important;
+      }
+}
+

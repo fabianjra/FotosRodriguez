@@ -65,3 +65,20 @@ function uObtenerNavegador() {
 
     return browserName;
 }
+
+//FUNCION: Carga las credenciales para la cuenta "fabianjradev@gmail.com".
+//RETURN: Objeto con los datos de las credenciales cargadas manualmente en esta funcion.
+function CargarCredencialesFirebase() {
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyBC8DV_tZW6w6ZfhSu_7pl8ak0ANYE73II",
+        authDomain: "fotosrodriguez-c0702.firebaseapp.com",
+        databaseURL: "https://fotosrodriguez-c0702.firebaseio.com",
+        projectId: "fotosrodriguez-c0702",
+        storageBucket: "fotosrodriguez-c0702.appspot.com",
+        messagingSenderId: "400822982170",
+        appId: "1:400822982170:web:cba598a454f9947c4263a3",
+        measurementId: "G-EYJBXJ68QN"
+    };
+    return firebaseConfig;
+}

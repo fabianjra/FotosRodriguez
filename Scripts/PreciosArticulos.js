@@ -1,28 +1,17 @@
 //Este archivo se carga solamente en la pagina de precios articulos, para cargar mediante un archivo JSON los precios
 //de los articulos que se tienen ahi, y se cargan en una tabla HTML de la pagina de precios articulos.
 $(document).ready(function () {
-
-    //Archivo creado para consultar la base de datos de Firebase, donde estan
-    //almacenados los precios de los articulos
-    CredencialesFirebase();
+    IniciarFirebase();
 });
 
-function CredencialesFirebase() {
+//Consulta la base de datos de Firebase, donde estan
+//almacenados los precios de los articulos
+function IniciarFirebase() {
     try {
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyBC8DV_tZW6w6ZfhSu_7pl8ak0ANYE73II",
-            authDomain: "fotosrodriguez-c0702.firebaseapp.com",
-            databaseURL: "https://fotosrodriguez-c0702.firebaseio.com",
-            projectId: "fotosrodriguez-c0702",
-            storageBucket: "fotosrodriguez-c0702.appspot.com",
-            messagingSenderId: "400822982170",
-            appId: "1:400822982170:web:cba598a454f9947c4263a3",
-            measurementId: "G-EYJBXJ68QN"
-        };
+        var firebaseConfig = CargarCredencialesFirebase();
+
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
 
         //Instancia de la conexion a la base de datos
         var database = firebase.database();
