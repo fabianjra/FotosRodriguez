@@ -42,15 +42,25 @@ section > div > div > .img-fluid{
   background-color: #f8f9fa;
 }
 
+/* Color verde a letras al hacer hover sobre el row */
+.fondoGrisHover:hover .hoverLinkVerde{
+  color: #17a2b8 !important;
+}
+
 /* Hace color negro las letras de la seccion de contacto (se ponen azules por el tag 'a' de enlace) */
 .fondoGrisHover > a > h5, .fondoGrisHover > a > p{
   color: #000000;
+}
+
+.fondoGrisHover > a > p{
+  font-size: smaller;
 }
 
 /* Quita el Underline de los textos al posicionarse sobre ellos */
 .fondoGrisHover > a{
   text-decoration: none;
 }
+
 
 /*Solo para tamaños de 767px o menos (momento al ocultarse links del navbar) */
 @media (max-width: 767px){
