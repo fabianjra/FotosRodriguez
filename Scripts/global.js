@@ -22,6 +22,8 @@ const _index = 'index';
 const _contacto = 'contacto';
 const _preciosArticulos = 'preciosarticulos';
 const _catalogoGraduacion = 'catalogograduacion';
+const _mantenimiento = 'mantenimiento';
+const _iniciarsesion = 'iniciarsesion';
 
 //Carga el Navbar y al momento despues de cargarla, ejecuta la funcion para marcar el Active correcto del Navbar
 $('#agregarMasterNavbar').load('MasterNavbar.html', ObtenerPaginaActual);
@@ -63,7 +65,7 @@ function ObtenerPaginaActual() {
     }
 };
 
-
+//Asinga el active en el navbar, al enlace de la pagina actual.
 function AsignarNavbarPaginaActual(pNombrePagina) {
 
     //Recibe el nombre de la pagina actual, sin separadores, ni puntos ni .hmtl
@@ -86,6 +88,16 @@ function AsignarNavbarPaginaActual(pNombrePagina) {
 
         case _catalogoGraduacion:
             var elemento = document.getElementById("navbarItemCatalogoGraduacion");
+            elemento.classList.add("active");
+            break;
+
+        case _iniciarsesion:
+            var elemento = document.getElementById("navbarItemIniciarSesion");
+            elemento.classList.add("active");
+            break;
+
+        case _mantenimiento:
+            var elemento = document.getElementById("navbarItemMantenimiento");
             elemento.classList.add("active");
             break;
 
