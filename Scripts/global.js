@@ -55,7 +55,7 @@ function ObtenerPaginaActual() {
         //Obtiene el nombre de la pagina, junto con el .html y todo lo que contenga despues del ultimo slash "/" (ejem: index.html, o: index.html?p=0)
         var nombreConHTML = segmento[segmento.length - 1];
 
-        //Obtiene el nombre de la pagina, antes del .html (ejem: index)
+        //Obtiene el nombre de la pagina, antes del .html (ejem: "index")
         var nombreCorto = nombreConHTML.split('.')[0];
 
         AsignarNavbarPaginaActual(nombreCorto);
@@ -91,13 +91,9 @@ function AsignarNavbarPaginaActual(pNombrePagina) {
             elemento.classList.add("active");
             break;
 
+        case _mantenimiento:
         case _iniciarsesion:
             var elemento = document.getElementById("navbarItemIniciarSesion");
-            elemento.classList.add("active");
-            break;
-
-        case _mantenimiento:
-            var elemento = document.getElementById("navbarItemMantenimiento");
             elemento.classList.add("active");
             break;
 

@@ -8,10 +8,12 @@ $(document).ready(function () {
 //almacenados los precios de los articulos
 function IniciarFirebase() {
     try {
-        var firebaseConfig = CargarCredencialesFirebase();
+        var firebaseConfig = uCargarCredencialesFirebase();
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+        // Initialize Firebase, en caso de que no este ya actualmente inicializado.
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
 
         //Instancia de la conexion a la base de datos
         var database = firebase.database();

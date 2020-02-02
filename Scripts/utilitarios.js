@@ -25,6 +25,12 @@ function uFormatoColon(pValor) {
     }
 }
 
+//FUNCION: Quita los espacion extremos a un strimg que se reciba como parametro.
+//RETURN: String recibido sin espacios a los extremos.
+function uTrim(texto) {
+    return texto.replace(/^\s+|\s+$/gm, '');
+}
+
 //PARAMS:
 //pArgumento: para sacar el nombre de la funcion donde se esté utilizando el try (script de las funciones utilizadas).
 //pEX: Mensaje de error.
@@ -68,7 +74,7 @@ function uObtenerNavegador() {
 
 //FUNCION: Carga las credenciales para la cuenta "fabianjradev@gmail.com".
 //RETURN: Objeto con los datos de las credenciales cargadas manualmente en esta funcion.
-function CargarCredencialesFirebase() {
+function uCargarCredencialesFirebase() {
     // Your web app's Firebase configuration
     var firebaseConfig = {
         apiKey: "AIzaSyBC8DV_tZW6w6ZfhSu_7pl8ak0ANYE73II",
