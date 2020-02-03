@@ -30,7 +30,7 @@ function InicarSesion() {
 
             firebase.auth().signInWithEmailAndPassword(email, password)
                 .then(function () {
-                    
+                    // Handle success here
                     firebase.auth().onAuthStateChanged(user => {
                         // sessionStorage.setItem("email", email);
                         window.alert("Bienvenido " + user.email);
