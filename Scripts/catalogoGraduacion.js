@@ -1,3 +1,6 @@
+//Nombre de constantes: nombre de colecciones (padre de tablas)
+const COLECCION_CATALOGO = 'catalogo';
+
 //Carga los codigos y los URLs de las imagenes, mediante JSON en firebase
 $(document).ready(function () {
     IniciarFirebase();
@@ -11,12 +14,12 @@ function IniciarFirebase() {
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
-       
+
         //Instancia de la conexion a la base de datos
         var database = firebase.database();
 
         //Se consulta la coleccion "catalogo", para obtener ambos arreglos (portatitulo[], cinta[])
-        var ref = database.ref('catalogo');
+        var ref = database.ref(COLECCION_CATALOGO);
         ref.on('value', gotData, errData);
 
         //Funcion para obtener el JSON de la base de datos, para el parametro "catalogo"
@@ -43,22 +46,24 @@ function IniciarFirebase() {
     }
 }
 
+//Se llanan las tablas
 function CargarCatalogo(arregloJson) {
     try {
         //Recorrido total del Json filtrado
         for (let item of arregloJson) {
 
-            //Si existen items de portatitulos, se llenan los tags
-            if (item.portatitulo.length > 0) {
+            //Carga de portatituloMayores, se llenan los tags
+            if (item.portatituloMayores != null) {
+                if (item.portatituloMayores.length > 0) {
 
-                //Instancia del tag al que se le van a cargar los datos del Json
-                //Por parametro, el nombre del ID del tag, en la pagina
-                let resTag = document.querySelector('#resPortatitulos');
-                resTag.innerHTML = '';
+                    //Instancia del tag al que se le van a cargar los datos del Json
+                    //Por parametro, el nombre del ID del tag, en la pagina
+                    let resTag = document.querySelector('#resPortatitulosMayores');
+                    resTag.innerHTML = '';
 
-                for (let index of item.portatitulo) {
-                    //Con comillas especiales, para mesclar con codigo HTML
-                    resTag.innerHTML += `
+                    for (let index of item.portatituloMayores) {
+                        //Con comillas especiales, para mesclar con codigo HTML
+                        resTag.innerHTML += `
                 <tr>
                     <td class="text-center align-middle">${index.codigo}</td>
                     <td class="text-center w-50">
@@ -67,18 +72,45 @@ function CargarCatalogo(arregloJson) {
                         </a>
                     </td>
                 </tr>`
+                    }
                 }
             }//FIN: IF
 
-            if (item.cinta.length > 0) {
+            //Carga de portatituloMenores, se llenan los tags
+            if (item.portatituloMenores != null) {
+                if (item.portatituloMenores.length > 0) {
 
-                //Instancia del tag al que se le van a cargar los datos del Json
-                //Por parametro, el nombre del ID del tag, en la pagina de precios
-                let resTag = document.querySelector('#resCintas');
-                resTag.innerHTML = '';
+                    //Instancia del tag al que se le van a cargar los datos del Json
+                    //Por parametro, el nombre del ID del tag, en la pagina
+                    let resTag = document.querySelector('#resPortatitulosMenores');
+                    resTag.innerHTML = '';
 
-                for (let index of item.cinta) {
-                    resTag.innerHTML += `
+                    for (let index of item.portatituloMenores) {
+                        //Con comillas especiales, para mesclar con codigo HTML
+                        resTag.innerHTML += `
+                <tr>
+                    <td class="text-center align-middle">${index.codigo}</td>
+                    <td class="text-center w-50">
+                        <a href="#" onclick="MostrarPopUp(this)">
+                            <img src="${index.imagen}" class="img-fluid img-thumbnail" alt="${index.codigo}">
+                        </a>
+                    </td>
+                </tr>`
+                    }
+                }
+            }//FIN: IF
+
+            //Carga de cintas mayores.
+            if (item.cintaMayores != null) {
+                if (item.cintaMayores.length > 0) {
+
+                    //Instancia del tag al que se le van a cargar los datos del Json
+                    //Por parametro, el nombre del ID del tag, en la pagina de precios
+                    let resTag = document.querySelector('#resCintasMayores');
+                    resTag.innerHTML = '';
+
+                    for (let index of item.cintaMayores) {
+                        resTag.innerHTML += `
                 <tr>
                     <td class="text-center align-middle">${index.codigo}</td>
                     <td class="text-center w-50">
@@ -87,8 +119,128 @@ function CargarCatalogo(arregloJson) {
                     </a>
                 </td>
                 </tr>`
+                    }
                 }
             }//FIN: IF
+
+            //Carga de cintas menores.
+            if (item.cintaMenores != null) {
+                if (item.cintaMenores.length > 0) {
+
+                    //Instancia del tag al que se le van a cargar los datos del Json
+                    //Por parametro, el nombre del ID del tag, en la pagina de precios
+                    let resTag = document.querySelector('#resCintasMenores');
+                    resTag.innerHTML = '';
+
+                    for (let index of item.cintaMenores) {
+                        resTag.innerHTML += `
+                <tr>
+                    <td class="text-center align-middle">${index.codigo}</td>
+                    <td class="text-center w-50">
+                    <a href="#" onclick="MostrarPopUp(this)">
+                        <img src="${index.imagen}" class="img-fluid img-thumbnail" alt="${index.codigo}">
+                    </a>
+                </td>
+                </tr>`
+                    }
+                }
+            }//FIN: IF
+
+            //Carga de cintas Estola.
+            if (item.cintaEstola != null) {
+                if (item.cintaEstola.length > 0) {
+
+                    //Instancia del tag al que se le van a cargar los datos del Json
+                    //Por parametro, el nombre del ID del tag, en la pagina de precios
+                    let resTag = document.querySelector('#resCintasEstola');
+                    resTag.innerHTML = '';
+
+                    for (let index of item.cintaEstola) {
+                        resTag.innerHTML += `
+                <tr>
+                    <td class="text-center align-middle">${index.codigo}</td>
+                    <td class="text-center w-50">
+                    <a href="#" onclick="MostrarPopUp(this)">
+                        <img src="${index.imagen}" class="img-fluid img-thumbnail" alt="${index.codigo}">
+                    </a>
+                </td>
+                </tr>`
+                    }
+                }
+            }//FIN: IF
+
+            //Carga de diarios.
+            if (item.diario != null) {
+                if (item.diario.length > 0) {
+
+                    //Instancia del tag al que se le van a cargar los datos del Json
+                    //Por parametro, el nombre del ID del tag, en la pagina de precios
+                    let resTag = document.querySelector('#resDiarios');
+                    resTag.innerHTML = '';
+
+                    for (let index of item.diario) {
+                        resTag.innerHTML += `
+                <tr>
+                    <td class="text-center align-middle">${index.codigo}</td>
+                    <td class="text-center w-50">
+                    <a href="#" onclick="MostrarPopUp(this)">
+                        <img src="${index.imagen}" class="img-fluid img-thumbnail" alt="${index.codigo}">
+                    </a>
+                </td>
+                </tr>`
+                    }
+                }
+            }//FIN: IF
+
+            //Carga de invitaciones.
+            if (item.invitacion != null) {
+                if (item.invitacion.length > 0) {
+
+                    //Instancia del tag al que se le van a cargar los datos del Json
+                    //Por parametro, el nombre del ID del tag, en la pagina de precios
+                    let resTag = document.querySelector('#resInvitaciones');
+                    resTag.innerHTML = '';
+
+                    for (let index of item.invitacion) {
+                        resTag.innerHTML += `
+                    <tr>
+                        <td class="text-center align-middle">${index.codigo}</td>
+                        <td class="text-center w-50">
+                        <a href="#" onclick="MostrarPopUp(this)">
+                            <img src="${index.imagen}" class="img-fluid img-thumbnail" alt="${index.codigo}">
+                        </a>
+                    </td>
+                    </tr>`
+                    }
+                }
+            }//FIN: IF
+
+            //Carga de invitaciones.
+            if (item.banderin != null) {
+                if (item.banderin.length > 0) {
+
+                    //Instancia del tag al que se le van a cargar los datos del Json
+                    //Por parametro, el nombre del ID del tag, en la pagina de precios
+                    let resTag = document.querySelector('#resBanderines');
+                    resTag.innerHTML = '';
+
+                    for (let index of item.banderin) {
+                        resTag.innerHTML += `
+                    <tr>
+                        <td class="text-center align-middle">${index.codigo}</td>
+                        <td class="text-center w-50">
+                        <a href="#" onclick="MostrarPopUp(this)">
+                            <img src="${index.imagen}" class="img-fluid img-thumbnail" alt="${index.codigo}">
+                        </a>
+                    </td>
+                    </tr>`
+                    }
+                }
+            }//FIN: IF
+
+
+
+
         }//FIN: FOR = recorrido del JSON
 
         //Agrega la función de datatable a la tabla.
@@ -102,8 +254,8 @@ function CargarCatalogo(arregloJson) {
                 infoFiltered: "(_MAX_ encontrados)",
                 infoPostFix: "",
                 loadingRecords: "Cargando...",
-                zeroRecords: "No se encontraron datos con tu busqueda",
-                emptyTable: "No hay datos disponibles en la tabla.",
+                zeroRecords: "No se encontraron datos",
+                emptyTable: "No hay datos disponibles.",
                 paginate: {
                     first: "Primero",
                     previous: "Anterior",
@@ -119,7 +271,7 @@ function CargarCatalogo(arregloJson) {
         });
 
         //Centra el NAV de paginacion (quita la clase de columna para los md)
-         //Recorre la cantidad de tablas que hay, para removerle a cada una el elemento de info (cantidad de elementos en la tabla).
+        //Recorre la cantidad de tablas que hay, para removerle a cada una el elemento de info (cantidad de elementos en la tabla).
         let cantidadTablas = document.getElementsByClassName('dataTables_wrapper').length;
         for (let i = 0; i < cantidadTablas; i++) {
             $('#DataTables_Table_' + i + '_wrapper').children().eq(2).children().eq(0).remove();

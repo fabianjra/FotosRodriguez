@@ -18,12 +18,16 @@ function CargarGoolgeAnalytics() {
 };
 
 //Constantes para los nombres de las paginas
-const _index = 'index';
-const _contacto = 'contacto';
-const _preciosArticulos = 'preciosarticulos';
-const _catalogoGraduacion = 'catalogograduacion';
-const _mantenimiento = 'mantenimiento';
-const _iniciarsesion = 'iniciarsesion';
+const PAG_INDEX = 'index';
+const PAG_CONTACTO = 'contacto';
+const PAG_PRECIOS_ARTICULOS = 'preciosarticulos';
+const PAG_CATALOGO_GRADUACION = 'catalogograduacion';
+
+//Mantenimiento
+const PAG_MANTENIMIENTO = 'mantenimiento';
+const PAG_INICIAR_SESION = 'iniciarsesion';
+
+//FIN: Constantes
 
 //Carga el Navbar y al momento despues de cargarla, ejecuta la funcion para marcar el Active correcto del Navbar
 $('#agregarMasterNavbar').load('MasterNavbar.html', ObtenerPaginaActual);
@@ -71,28 +75,29 @@ function AsignarNavbarPaginaActual(pNombrePagina) {
     //Recibe el nombre de la pagina actual, sin separadores, ni puntos ni .hmtl
     switch (pNombrePagina) {
 
-        case _index:
+        case PAG_INDEX:
             var elemento = document.getElementById("navbarItemInicio");
             elemento.classList.add("active");
             break;
 
-        case _contacto:
+        case PAG_CONTACTO:
             var elemento = document.getElementById("navbarItemContacto");
             elemento.classList.add("active");
             break;
 
-        case _preciosArticulos:
+        case PAG_PRECIOS_ARTICULOS:
             var elemento = document.getElementById("navbarItemPrecios");
             elemento.classList.add("active");
             break;
 
-        case _catalogoGraduacion:
+        case PAG_CATALOGO_GRADUACION:
             var elemento = document.getElementById("navbarItemCatalogoGraduacion");
             elemento.classList.add("active");
             break;
 
-        case _mantenimiento:
-        case _iniciarsesion:
+        //Para ambas paginas iniciar sesion y Mantenimiento, se deja activo el mismo item del NavBar.
+        case PAG_MANTENIMIENTO:
+        case PAG_INICIAR_SESION:
             var elemento = document.getElementById("navbarItemIniciarSesion");
             elemento.classList.add("active");
             break;

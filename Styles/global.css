@@ -50,8 +50,16 @@ body{
     color: #FFFFFF;
 }
 
+#navbarItemCatalogoGraduacion > .dropdown-menu > a{
+    color: #FFFFFF;
+}
+
 /*Cambiar el color al fondo del hover, para no hacerlo tan claro*/
 #navbarItemPrecios > .dropdown-menu > a:hover{
+    background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+#navbarItemCatalogoGraduacion > .dropdown-menu > a:hover{
     background-color: rgba(255, 255, 255, 0.5) !important;
 }
 

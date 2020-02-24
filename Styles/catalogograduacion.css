@@ -3,6 +3,16 @@
     justify-content: center !important;
 }
 
+/* Cambiar el color de los enlaces del catalogo */
+.nav-tabs .nav-link{
+    color: #17a2b8;
+}
+
+.nav-tabs .nav-link.active{
+    background-color: #17a2b8;
+    color: #ffffff;
+}
+
 /*Solo para tamaños de 768px o mas (momento al usar COL-SM)*/
 @media (min-width: 768px){
 
