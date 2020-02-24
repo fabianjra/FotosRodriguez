@@ -1,3 +1,6 @@
+//Nombre de constantes: nombre de colecciones (padre de tablas)
+const COLECCION_PRECIOS = 'precios';
+
 //Este archivo se carga solamente en la pagina de precios articulos, para cargar mediante un archivo JSON los precios
 //de los articulos que se tienen ahi, y se cargan en una tabla HTML de la pagina de precios articulos.
 $(document).ready(function () {
@@ -19,7 +22,7 @@ function IniciarFirebase() {
         var database = firebase.database();
 
         //Se consulta la coleccion "precios", para obtener ambos arreglos (foto[], ratablo[])
-        var ref = database.ref('precios');
+        var ref = database.ref(COLECCION_PRECIOS);
         ref.on('value', gotData, errData);
 
         //Funcion para obtener el JSON de la base de datos, para el parametro "precios"
@@ -51,39 +54,65 @@ function CargarPrecios(arregloJson) {
         //Recorrido total del Json para obtener los precios de los articulos
         for (let item of arregloJson) {
 
-            //Si existen precios de fotos, los llena en la tabla. Sino, se debe ocultar
-            if (item.foto.length > 0) {
+            //Carga de precio de fotos
+            if (item.foto != null) {
+                if (item.foto.length > 0) {
 
-                //Instancia del tag al que se le van a cargar los datos del Json
-                //Por parametro, el nombre del ID del tag, en la pagina de precios
-                let resTag = document.querySelector('#resPreciosFotos');
-                resTag.innerHTML = '';
+                    //Instancia del tag al que se le van a cargar los datos del Json
+                    //Por parametro, el nombre del ID del tag, en la pagina de precios
+                    let resTag = document.querySelector('#resPreciosFotos');
+                    resTag.innerHTML = '';
 
-                for (let index of item.foto) {
-                    //Con comillas especiales, para mesclar con codigo HTML
-                    resTag.innerHTML += `
+                    for (let index of item.foto) {
+                        //Con comillas especiales, para mesclar con codigo HTML
+                        resTag.innerHTML += `
                 <tr>
                     <td class="text-center">${index.tamano}</td>
                     <td class="text-center">${uFormatoColon(index.precio)}</td>
                 </tr>`
+                    }
                 }
             }//FIN: IF = Si existen items para los precios de las fotos
 
-            if (item.retablo.length > 0) {
+            //Carga de precio de retablos
+            if (item.retablo != null) {
+                if (item.retablo.length > 0) {
 
-                //Instancia del tag al que se le van a cargar los datos del Json
-                //Por parametro, el nombre del ID del tag, en la pagina de precios
-                let resTag = document.querySelector('#resPreciosRetablos');
-                resTag.innerHTML = '';
+                    //Instancia del tag al que se le van a cargar los datos del Json
+                    //Por parametro, el nombre del ID del tag, en la pagina de precios
+                    let resTag = document.querySelector('#resPreciosRetablos');
+                    resTag.innerHTML = '';
 
-                for (let index of item.retablo) {
-                    resTag.innerHTML += `
+                    for (let index of item.retablo) {
+                        resTag.innerHTML += `
                 <tr>
                     <td class="text-center">${index.tamano}</td>
                     <td class="text-center">${uFormatoColon(index.precio)}</td>
                 </tr>`
+                    }
                 }
             }//FIN: IF = Si existen items para los precios de los retablos
+
+            //Carga de precio de otros articulos (llaveros, jarras, etc.)
+            if (item.otros != null) {
+                if (item.otros.length > 0) {
+
+                    //Instancia del tag al que se le van a cargar los datos del Json
+                    //Por parametro, el nombre del ID del tag, en la pagina de precios
+                    let resTag = document.querySelector('#resPreciosOtros');
+                    resTag.innerHTML = '';
+
+                    for (let index of item.otros) {
+                        resTag.innerHTML += `
+                <tr>
+                    <td class="text-center">${index.descripcion}</td>
+                    <td class="text-center">${uFormatoColon(index.precio)}</td>
+                </tr>`
+                    }
+                }
+            }//FIN: IF = Si existen items para los precios de otros articulo
+
+
         }//FIN: FOR = recorrido del JSON
 
     } catch (ex) {

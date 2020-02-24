@@ -2,6 +2,17 @@
 
 // });
 
+//Carga de Goolge Analytics para el envio de errores, mediante eventos.
+(function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+    
+    ga('create', 'UA-153083935-1', 'auto');
+    ga('send', 'pageview');
+
 //PARAMS:
 //pValor: un numero entero sin formato, para devolverlo con formato en colon.
 //FUNCION: Obtiene el formato de CR y convierte el valor a formato con comas entre decimales y espacio entre miles.
@@ -41,7 +52,19 @@ function uEscribirError(pArgumento, pEx) {
     funcName = funcName.substr('function '.length);
     funcName = funcName.substr(0, funcName.indexOf('('));
 
-    console.error("ERROR CATCH; NAVEGADOR: " + uObtenerNavegador() + "; METODO: " + funcName + "; MENSAJE: " + pEx.message);
+    let mensajeConsola = "ERROR CATCH; " +"NAVEGADOR: " + uObtenerNavegador() + "; METODO: " + funcName + "; MENSAJE: " + pEx.message;
+
+    console.error(mensajeConsola);
+
+    //Envia el error a Goolge Analytics
+    let mensajeAnalytics = uObtenerNavegador() + "; " + pEx.message;
+
+    ga('send', {
+        hitType: 'event',
+        eventCategory: 'EXCEPTION',
+        eventAction: funcName,
+        eventLabel: mensajeAnalytics
+    });
 }
 
 //FUNCION: Consulta el navegador basandose en una lista ya preestablecida
