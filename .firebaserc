@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "fotos-rodriguez"
+    "default": "fotos-rodriguez",
+    "fotosrodriguez": "fotosrodriguez-c0702"
   }
 }
