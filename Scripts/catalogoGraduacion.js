@@ -238,9 +238,6 @@ function CargarCatalogo(arregloJson) {
                 }
             }//FIN: IF
 
-
-
-
         }//FIN: FOR = recorrido del JSON
 
         //Agrega la función de datatable a la tabla.
@@ -269,6 +266,13 @@ function CargarCatalogo(arregloJson) {
             },
             lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "Todos"]]
         });
+
+        //Sube el scroll en caso de cambiar de pagina
+        // $('.tablaScrollUp').on('page.dt', function () {
+        //     $('html, body').animate({
+        //         scrollTop: $(".dataTables_wrapper").offset().top
+        //     }, 'slow');
+        // });
 
         //Centra el NAV de paginacion (quita la clase de columna para los md)
         //Recorre la cantidad de tablas que hay, para removerle a cada una el elemento de info (cantidad de elementos en la tabla).
