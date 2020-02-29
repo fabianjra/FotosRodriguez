@@ -1,3 +1,5 @@
+ConsultaUsarioActivo();
+
 $(document).ready(function () {
 
     //Limpia el mensaje de error
@@ -44,6 +46,25 @@ function InicarSesion() {
                     document.getElementById('lblError').innerHTML = errorMessage;
                 });
         }
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+}
+
+function ConsultaUsarioActivo() {
+    try {
+        var firebaseConfig = uCargarCredencialesFirebase();
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        //If user is no active, go to the initial page
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                window.location = "mantenimiento.html";
+            }
+        });
     } catch (ex) {
         uEscribirError(arguments, ex);
     }

@@ -9,8 +9,9 @@
 }
 
 .nav-tabs .nav-link.active{
-    background-color: #17a2b8;
-    color: #ffffff;
+    /* background-color: #17a2b8; */
+    /* color: #ffffff; */
+    font-weight: bold;
 }
 
 /*Solo para tamaños de 768px o mas (momento al usar COL-SM)*/

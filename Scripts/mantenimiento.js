@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     ConsultaUsarioActivo();
 });
 
@@ -11,6 +10,7 @@ function ConsultaUsarioActivo() {
             firebase.initializeApp(firebaseConfig);
         }
 
+        //If user is no active, go to the initial page
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 // User is signed in.
@@ -21,12 +21,18 @@ function ConsultaUsarioActivo() {
                 var isAnonymous = user.isAnonymous;
                 var uid = user.uid;
                 var providerData = user.providerData;
+
+                //Can use the vars for wharever you want.
             } else {
                 // User is signed out.
-                window.location = "/";
+                window.location = "iniciarsesion.html";
             }
         });
     } catch (ex) {
         uEscribirError(arguments, ex);
     }
+}
+
+function DescargarDB() {
+    
 }
