@@ -55,21 +55,22 @@ function uTrim(texto) {
 //FUNCION: Escribe el mensaje de error en el log.
 function uEscribirError(pArgumento, pEx) {
 
+    let nombrePagina = uRetornarPaginaActual();
+
     let funcName = pArgumento.callee.toString();
     funcName = funcName.substr('function '.length);
     funcName = funcName.substr(0, funcName.indexOf('('));
 
-    let mensajeConsola = "ERROR CATCH; " + "NAVEGADOR: " + uObtenerNavegador() + "; METODO: " + funcName + "; MENSAJE: " + pEx.message;
-
+    //Only console log
+    let mensajeConsola = "ERROR CATCH; " + "NAVEGADOR: " + uObtenerNavegador() + "; PAGINA: " + nombrePagina + "; METODO: " + funcName + "; MENSAJE: " + pEx;
     console.error(mensajeConsola);
 
     //Envia el error a Goolge Analytics
-    let mensajeAnalytics = uObtenerNavegador() + "; " + pEx.message;
-
+    let mensajeAnalytics = uObtenerNavegador() + "; " + funcName + "; " + pEx.message;
     ga('send', {
         hitType: 'event',
         eventCategory: 'EXCEPTION',
-        eventAction: funcName,
+        eventAction: nombrePagina,
         eventLabel: mensajeAnalytics
     });
 }
@@ -118,3 +119,37 @@ function uCargarCredencialesFirebase() {
     };
     return firebaseConfig;
 }
+
+
+//Al realizar cualquier carga de pagina, se consulta el URL de la direccion actual
+//y se obtiene solamente el nombre de la pagina, en base a este nombre, se asigna como
+// actual, a la pagina correcta en el Navbar, como seleccion.
+function uRetornarPaginaActual() {
+    try {
+        var nombrePagina = "";
+
+        var segmento = window.location.pathname.split('/');
+        var borrar = [];
+
+        for (let i = 0; i < borrar.length; i++) {
+            if (segmento[i].length < 1) {
+                borrar.push(i);
+            }
+        }
+
+        for (let i = 0; i < borrar.length; i++) {
+            segmento.splice(i, 1);
+        }
+
+        //Obtiene el nombre de la pagina, junto con el .html y todo lo que contenga despues del ultimo slash "/" (ejem: index.html, o: index.html?p=0)
+        var nombreConHTML = segmento[segmento.length - 1];
+
+        //Obtiene el nombre de la pagina, antes del .html (ejem: "index")
+        nombrePagina = nombreConHTML.split('.')[0];
+
+        return nombrePagina;
+        
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+};
