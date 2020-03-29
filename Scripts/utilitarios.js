@@ -120,13 +120,12 @@ function uCargarCredencialesFirebase() {
     return firebaseConfig;
 }
 
-
 //Al realizar cualquier carga de pagina, se consulta el URL de la direccion actual
 //y se obtiene solamente el nombre de la pagina, en base a este nombre, se asigna como
 // actual, a la pagina correcta en el Navbar, como seleccion.
 function uRetornarPaginaActual() {
     try {
-        var nombrePagina = "";
+        var nombrePagina = "InicializadaNull";
 
         var segmento = window.location.pathname.split('/');
         var borrar = [];
@@ -147,9 +146,31 @@ function uRetornarPaginaActual() {
         //Obtiene el nombre de la pagina, antes del .html (ejem: "index")
         nombrePagina = nombreConHTML.split('.')[0];
 
+        if (nombrePagina == "" || nombrePagina == null) {
+            nombrePagina = "index";
+        }
+
         return nombrePagina;
-        
+
     } catch (ex) {
         uEscribirError(arguments, ex);
     }
 };
+
+//FUNCION: Llamando a esta funcion, se escribe un evento en Analytics.
+function uEscribirEventoAccion(pMensaje) {
+    let nombrePagina = uRetornarPaginaActual();
+    let mensajeAnalytics = uObtenerNavegador() + "; " + pMensaje;
+    
+    ga('send', {
+        hitType: 'event',
+        eventCategory: 'ACCION',
+        eventAction: nombrePagina,
+        eventLabel: mensajeAnalytics,
+        hitCallback: function () {
+            //Only console log
+            let mensajeConsola = "ACCION; " + "NAVEGADOR: " + uObtenerNavegador() + "; PAGINA: " + nombrePagina + "; MENSAJE: " + pMensaje;
+            console.log("%c" + mensajeConsola, "color:green");
+        }
+    });
+}

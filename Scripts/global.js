@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     //Se carga la configuración de google Analytics, de manera global para cada pagina
     CargarGoolgeAnalytics();
 });
@@ -32,11 +31,6 @@ const PAG_INICIAR_SESION = 'iniciarsesion';
 //Carga el Navbar y al momento despues de cargarla, ejecuta la funcion para marcar el Active correcto del Navbar
 $('#agregarMasterNavbar').load('MasterNavbar.html', ObtenerPaginaActual);
 $('#agregarMasterFooter').load('MasterFooter.html');
-
-//ToggleClass agrega la clase si no la tiene, y si ya la tiene la remueve (como un tipo interruptor)
-function clickBotonNavbar() {
-    $(".navbar").toggleClass("colorNegro");
-};
 
 //Al realizar cualquier carga de pagina, se consulta el URL de la direccion actual
 //y se obtiene solamente el nombre de la pagina, en base a este nombre, se asigna como
@@ -110,6 +104,52 @@ function AsignarNavbarPaginaActual(pNombrePagina) {
     }
 };
 
+// ********************** FUNCIONES DEL NAVBAR Y FOOTER ********************* //
+
+//ToggleClass agrega la clase si no la tiene, y si ya la tiene la remueve (como un tipo interruptor)
+function clickBotonNavbar() {
+    $(".navbar").toggleClass("colorNegro");
+};
+
+//Escribe un mensaje en Analytics, cuando se haga un click al enlace de facebook
+function ClickFacebook(pUbicacion) {
+    try {
+        let mensaje = "Click ver pagina Facebook " + pUbicacion;
+        uEscribirEventoAccion(mensaje)
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+}
+
+//Escribe un mensaje en Analytics, cuando se haga un click al enlace
+function ClickWhatsappFooter() {
+    try {
+        let mensaje = "Click enviar mensaje Whastsapp footer";
+        uEscribirEventoAccion(mensaje)
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+}
+
+//Escribe un mensaje en Analytics, cuando se haga un click al enlace
+function ClickEmailFooter() {
+    try {
+        let mensaje = "Click enviar mensaje por Email footer";
+        uEscribirEventoAccion(mensaje)
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+}
+
+//Escribe un mensaje en Analytics, cuando se haga un click al enlace
+function ClickUbicacionFooter() {
+    try {
+        let mensaje = "Click ver ubicacion footer";
+        uEscribirEventoAccion(mensaje)
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+}
 
 
 // ************************ SIN USO *********************** //
