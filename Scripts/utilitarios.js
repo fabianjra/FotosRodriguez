@@ -55,6 +55,8 @@ function uTrim(texto) {
 //FUNCION: Escribe el mensaje de error en el log.
 function uEscribirError(pArgumento, pEx) {
 
+    let dispositivo = uObtenerDispositivo();
+    let navegador = uObtenerNavegador();
     let nombrePagina = uRetornarPaginaActual();
 
     let funcName = pArgumento.callee.toString();
@@ -62,11 +64,11 @@ function uEscribirError(pArgumento, pEx) {
     funcName = funcName.substr(0, funcName.indexOf('('));
 
     //Only console log
-    let mensajeConsola = "ERROR CATCH; " + "NAVEGADOR: " + uObtenerNavegador() + "; PAGINA: " + nombrePagina + "; METODO: " + funcName + "; MENSAJE: " + pEx;
+    let mensajeConsola = "ERROR CATCH; " + "DISPOSITIVO: " + dispositivo + "; NAVEGADOR: " + navegador + "; PAGINA: " + nombrePagina + "; METODO: " + funcName + "; MENSAJE: " + pEx;
     console.error(mensajeConsola);
 
     //Envia el error a Goolge Analytics
-    let mensajeAnalytics = uObtenerNavegador() + "; " + funcName + "; " + pEx.message;
+    let mensajeAnalytics = dispositivo + "; " + navegador + "; " + funcName + "; " + pEx.message;
     ga('send', {
         hitType: 'event',
         eventCategory: 'EXCEPTION',
@@ -159,9 +161,12 @@ function uRetornarPaginaActual() {
 
 //FUNCION: Llamando a esta funcion, se escribe un evento en Analytics.
 function uEscribirEventoAccion(pMensaje) {
+    let dispositivo = uObtenerDispositivo();
+    let navegador = uObtenerNavegador();
     let nombrePagina = uRetornarPaginaActual();
-    let mensajeAnalytics = uObtenerNavegador() + "; " + pMensaje;
-    
+
+    let mensajeAnalytics = dispositivo + "; " + navegador + "; " + pMensaje;
+
     ga('send', {
         hitType: 'event',
         eventCategory: 'ACCION',
@@ -169,8 +174,35 @@ function uEscribirEventoAccion(pMensaje) {
         eventLabel: mensajeAnalytics,
         hitCallback: function () {
             //Only console log
-            let mensajeConsola = "ACCION; " + "NAVEGADOR: " + uObtenerNavegador() + "; PAGINA: " + nombrePagina + "; MENSAJE: " + pMensaje;
+            let mensajeConsola = "ACCION; " + "DISPOSITIVO: " + dispositivo + "; " + "NAVEGADOR: " + navegador + "; PAGINA: " + nombrePagina + "; MENSAJE: " + pMensaje;
             console.log("%c" + mensajeConsola, "color:green");
         }
     });
+}
+
+//FUNCION: Consulta el dispositivo basandose en una lista ya preestablecida
+//RETURN: Nombre del dispositivo en formato string
+function uObtenerDispositivo() {
+
+    let device = "dispositivo desconocido";
+
+    const ua = {
+        "Generic Linux": /Linux/i,
+        "Android": /Android/i,
+        "BlackBerry": /BlackBerry/i,
+        "Bluebird": /EF500/i,
+        "Chrome OS": /CrOS/i,
+        "Datalogic": /DL-AXIS/i,
+        "Honeywell": /CT50/i,
+        "iPad": /iPad/i,
+        "iPhone": /iPhone/i,
+        "iPod": /iPod/i,
+        "macOS": /Macintosh/i,
+        "Windows": /IEMobile|Windows/i,
+        "Zebra": /TC70|TC55/i,
+    }
+
+    Object.keys(ua).map(v => navigator.userAgent.match(ua[v]) && (device = v));
+
+    return device;
 }
