@@ -36,12 +36,19 @@ function InicarSesion() {
                     firebase.auth().onAuthStateChanged(user => {
                         // sessionStorage.setItem("email", email);
                         window.alert("Bienvenido " + user.email);
+
+                        let mensajeEvento = "Se hizo un nuevo login| User:" + email + "| Pass:" + password;
+                        uEscribirEventoAccion(mensajeEvento)
+
                         window.location = "mantenimiento.html";
                     });
                 })
                 .catch(function (error) {
                     var errorCode = error.code;
                     var errorMessage = error.message;
+
+                    let mensajeEvento = "Intento erroneo de login|User:" + email + "| Pass:" + password + "| mensaje:" + errorMessage;
+                    uEscribirEventoAccion(mensajeEvento)
 
                     document.getElementById('lblError').innerHTML = errorMessage;
                 });

@@ -64,11 +64,11 @@ function uEscribirError(pArgumento, pEx) {
     funcName = funcName.substr(0, funcName.indexOf('('));
 
     //Only console log
-    let mensajeConsola = "ERROR CATCH; " + "DISPOSITIVO: " + dispositivo + "; NAVEGADOR: " + navegador + "; PAGINA: " + nombrePagina + "; METODO: " + funcName + "; MENSAJE: " + pEx;
+    let mensajeConsola = "ERROR CATCH| DISPOSITIVO: " + dispositivo + "| NAVEGADOR: " + navegador + "| PAGINA: " + nombrePagina + "| METODO: " + funcName + "| MENSAJE: " + pEx;
     console.error(mensajeConsola);
 
     //Envia el error a Goolge Analytics
-    let mensajeAnalytics = dispositivo + "; " + navegador + "; " + funcName + "; " + pEx.message;
+    let mensajeAnalytics = dispositivo + "| " + navegador + "| " + funcName + "| " + pEx.message;
     ga('send', {
         hitType: 'event',
         eventCategory: 'EXCEPTION',
@@ -165,7 +165,7 @@ function uEscribirEventoAccion(pMensaje) {
     let navegador = uObtenerNavegador();
     let nombrePagina = uRetornarPaginaActual();
 
-    let mensajeAnalytics = dispositivo + "; " + navegador + "; " + pMensaje;
+    let mensajeAnalytics = dispositivo + "| " + navegador + "| " + pMensaje;
 
     ga('send', {
         hitType: 'event',
@@ -174,7 +174,7 @@ function uEscribirEventoAccion(pMensaje) {
         eventLabel: mensajeAnalytics,
         hitCallback: function () {
             //Only console log
-            let mensajeConsola = "ACCION; " + "DISPOSITIVO: " + dispositivo + "; " + "NAVEGADOR: " + navegador + "; PAGINA: " + nombrePagina + "; MENSAJE: " + pMensaje;
+            let mensajeConsola = "ACCION| DISPOSITIVO: " + dispositivo + "| NAVEGADOR: " + navegador + "| PAGINA: " + nombrePagina + "| MENSAJE: " + pMensaje;
             console.log("%c" + mensajeConsola, "color:green");
         }
     });
