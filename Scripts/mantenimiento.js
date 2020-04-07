@@ -51,6 +51,9 @@ function DescargarDB() {
             let nombreArchivo = "RespaldoFotosRodriguez_" + fechaActual;
 
             uDescargarArchivo(stringJsonDB, nombreArchivo, 'json');
+
+            let mensajeEvento = "Se descargo un respaldo de la BD";
+            uEscribirEventoAccion(mensajeEvento)
         });
     } catch (ex) {
         uEscribirError(arguments, ex);
