@@ -47,7 +47,7 @@ function InicarSesion() {
                     var errorCode = error.code;
                     var errorMessage = error.message;
 
-                    let mensajeEvento = "Intento erroneo de login|User:" + email + "| Pass:" + password + "| mensaje:" + errorMessage;
+                    let mensajeEvento = "Intento erroneo de login| User:" + email + "| Pass:" + password + "| codigo:" + errorCode;
                     uEscribirEventoAccion(mensajeEvento)
 
                     document.getElementById('lblError').innerHTML = errorMessage;
