@@ -206,3 +206,48 @@ function uObtenerDispositivo() {
 
     return device;
 }
+
+//PARAMS:
+//pContenido: Contenido que va a tener el archivo.
+//pNombreArchivo: Nombre que va a llevar el archivo (no incluir extension aqui).
+//pExtension: Nombre de la extension (sin el punto al inicio de la extension).
+//FUNCION: Descarga un archivo a la computadora, de texto plano, con codificacion UTF-8 (acualmente funciona de esta manera en chrome).
+function uDescargarArchivo(pContenido, pNombreArchivo, pExtension) {
+    try {
+        var a = document.createElement("a");
+        var file = new Blob([pContenido], { encoding: "UTF-8", type: "text/plain;charset=UTF-8" });
+
+        a.href = URL.createObjectURL(file);
+        a.download = pNombreArchivo + '.' + pExtension;
+
+        a.click();
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+}
+
+
+//PARAMS:
+//pSeparadorFecha: Signo para separar el dia, mes y año.
+//pSeparadorHora: Signo para separar la hora, minutos y segundos.
+//FUNCION: Arma la fecha actual, para convertirla en una sola cadena string.
+//         Por defecto, separa la fecha y la hora con un guion abajo.
+//RETURN: Fecha y hora armada en formato de Costa Rica "dd-MM-YY || HH.mm.ss" (la hora es 24 horas).
+function uObtenerFechaHoraActual(pSeparadorFecha, pSeparadorHora) {
+    try {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        var hour = today.getHours();
+        var minutes = today.getMinutes();
+        var seconds = today.getSeconds();
+
+        today = dd + pSeparadorFecha + mm + pSeparadorFecha + yyyy + '_' + hour + pSeparadorHora + minutes + pSeparadorHora + seconds;
+
+        return today
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+}

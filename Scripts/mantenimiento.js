@@ -34,30 +34,27 @@ function ConsultaUsarioActivo() {
 }
 
 function DescargarDB() {
-    
-    var firebaseConfig = uCargarCredencialesFirebase();
+    try {
+        //Inicializa la carga de credenciales para acceder a firebase.
+        var firebaseConfig = uCargarCredencialesFirebase();
 
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        var rootRef = firebase.database().ref(); // Ref to database root
+
+        rootRef.once("value", function (snapshot) {
+            var stringJsonDB = JSON.stringify(snapshot.val());
+
+            let fechaActual = uObtenerFechaHoraActual('-', '.');
+            let nombreArchivo = "RespaldoFotosRodriguez_" + fechaActual;
+
+            uDescargarArchivo(stringJsonDB, nombreArchivo, 'json');
+        });
+    } catch (ex) {
+        uEscribirError(arguments, ex);
     }
-
-
-    console.log("1");
-    var getJSON = firebase.functions().httpsCallable('getJSON');
-    console.log("2");
-
-    getJSON().then(function(result) {
-        console.log("Then: " + JSON.stringify(result.data));
-    }).catch(function(error) {
-        // Getting the Error details.
-        var code = error.code;
-        var message = error.message;
-        var message = error.details;
-        
-        
-        console.log("code: " + code);
-        console.log(message);
-        console.log(message);
-    });
-
 }
+
+
