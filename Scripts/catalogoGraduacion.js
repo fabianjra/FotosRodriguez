@@ -29,9 +29,11 @@ function IniciarFirebase() {
             let arregloJson = data.val();
 
             //Para los ID (keys) del arreglo, se hace de la siguiente manera:
-            // var keys = Object.keys(datosJSON);
-            // console.log(keys);
-
+            // for (let item of arregloJson) {
+            //     var keys = Object.keys(item.portatituloMayores);
+            //     console.log(keys);
+            // }
+            
             //Solo envia los dos arreglos: codigo y imagen.
             CargarCatalogo(arregloJson);
         }

@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <!-- CDN DataTable -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" type="text/css">
+
     <!-- BOOTSTRAP 4.3.1 y FontAwesome 4.7.0-->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type='text/css'>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -33,16 +36,245 @@
         </div>
 
         <div class="row">
+            <div class="col">
 
-            <div class="col-md-12 col-lg-6">
-                <div class="m-3 mt-5">
+                <div class="col-10 offset-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                    <div class="m-3 mt-5">
+                        <button tabindex="3" class="btn btn-info btn-block" onclick="DescargarDB()">Descargar copia de
+                            seguridad</button>
+                    </div>
+                </div>
 
-                    <button tabindex="3" class="btn btn-info btn-block" onclick="DescargarDB()">Descargar copia de seguridad</button>
+                <!-- COMIENZO DE CARGA DE TABLAS -->
+
+                <ul class="nav nav-tabs justify-content-center m-3 mt-5" id="" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="portatiulo-tab" data-toggle="tab" href="#portatiulo" role="tab"
+                            aria-controls="portatiulo" aria-selected="true">Portatitulos</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" id="cinta-tab" data-toggle="tab" href="#cinta" role="tab"
+                            aria-controls="cinta" aria-selected="false">Cintas</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" id="otros-tab" data-toggle="tab" href="#otros" role="tab"
+                            aria-controls="otros" aria-selected="false">Otros</a>
+                    </li>
+                </ul>
+
+                <!-- Contenido de la tabla de navegacion -->
+                <div class="tab-content" id="">
+
+                    <!-- SECCION: Portatitulos -->
+                    <div class="tab-pane fade show active" id="portatiulo" role="tabpanel"
+                        aria-labelledby="portatiulo-tab">
+                        <div class="row">
+
+                            <!-- Portatitulos para escuela y colegio -->
+                            <div class="col-12 col-lg-6">
+                                <div class="mt-5 mb-3">
+
+                                    <table class="table table-striped table-dark tablaCatalogoDB tablaScrollUp">
+                                        <h3 class="text-center">Escuela y colegio</h3>
+                                        <caption><small>Presiona alguna de las imagenes para ver en grande</small>
+                                        </caption>
+                                        <thead class="bg-info">
+                                            <tr>
+                                                <th class="text-center" scope="col">Codigo</th>
+                                                <th class="text-center" scope="col">Diseño</th>
+                                            </tr>
+                                        </thead>
+
+                                        <!-- LLENADAS MEDIANTE JSON -->
+                                        <tbody id="resPortatitulosMayores"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Portatitulos para kinder -->
+                            <div class="col-12 col-lg-6">
+                                <div class="mt-5 mb-3">
+
+                                    <table class="table table-striped table-dark tablaCatalogoDB tablaScrollUp">
+                                        <h3 class="text-center">Kinder</h3>
+                                        <caption><small>Presiona alguna de las imagenes para ver en grande</small>
+                                        </caption>
+                                        <thead class="bg-info">
+                                            <tr>
+                                                <th class="text-center" scope="col">Codigo</th>
+                                                <th class="text-center" scope="col">Diseño</th>
+                                            </tr>
+                                        </thead>
+
+                                        <!-- LLENADAS MEDIANTE JSON -->
+                                        <tbody id="resPortatitulosMenores"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- FIN: SECCION portatitulos -->
+
+                    <!-- SECCION: Cintas -->
+                    <div class="tab-pane fade" id="cinta" role="tabpanel" aria-labelledby="cinta-tab">
+                        <div class="row">
+
+                            <!-- Cintas para escuela y colegio -->
+                            <div class="col-12 col-lg-6">
+                                <div class="mt-5 mb-3">
+
+                                    <table class="table table-striped table-dark tablaCatalogoDB">
+                                        <h3 class="text-center">Escuela y colegio</h3>
+                                        <caption><small>Presiona alguna de las imagenes para ver en grande</small>
+                                        </caption>
+                                        <thead class="bg-info">
+                                            <tr>
+                                                <th class="text-center" scope="col">Codigo</th>
+                                                <th class="text-center" scope="col">Diseño</th>
+                                            </tr>
+                                        </thead>
+
+                                        <!-- LLENADAS MEDIANTE JSON -->
+                                        <tbody id="resCintasMayores"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Cintas para kinder -->
+                            <div class="col-12 col-lg-6">
+                                <div class="mt-5 mb-3">
+
+                                    <table class="table table-striped table-dark tablaCatalogoDB">
+                                        <h3 class="text-center">Kinder</h3>
+                                        <caption><small>Presiona alguna de las imagenes para ver en grande</small>
+                                        </caption>
+                                        <thead class="bg-info">
+                                            <tr>
+                                                <th class="text-center" scope="col">Codigo</th>
+                                                <th class="text-center" scope="col">Diseño</th>
+                                            </tr>
+                                        </thead>
+
+                                        <!-- LLENADAS MEDIANTE JSON -->
+                                        <tbody id="resCintasMenores"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Cintas estilo estola -->
+                            <div class="col-12 col-lg-6">
+                                <div class="mt-5 mb-3">
+
+                                    <table class="table table-striped table-dark tablaCatalogoDB">
+                                        <h3 class="text-center">Estolas</h3>
+                                        <caption><small>Presiona alguna de las imagenes para ver en grande</small>
+                                        </caption>
+                                        <thead class="bg-info">
+                                            <tr>
+                                                <th class="text-center" scope="col">Codigo</th>
+                                                <th class="text-center" scope="col">Diseño</th>
+                                            </tr>
+                                        </thead>
+
+                                        <!-- LLENADAS MEDIANTE JSON -->
+                                        <tbody id="resCintasEstola"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- FIN: SECCION cintas -->
+
+                    <!-- SECCION: Otros (invitaciones, banderines, diarios) -->
+                    <div class="tab-pane fade" id="otros" role="tabpanel" aria-labelledby="otros-tab">
+                        <div class="row">
+
+                            <!-- Diarios -->
+                            <div class="col-12 col-lg-6">
+                                <div class="mt-5 mb-3">
+
+                                    <table class="table table-striped table-dark tablaCatalogoDB">
+                                        <h3 class="text-center">Diarios</h3>
+                                        <caption><small>Presiona alguna de las imagenes para ver en grande</small>
+                                        </caption>
+                                        <thead class="bg-info">
+                                            <tr>
+                                                <th class="text-center" scope="col">Codigo</th>
+                                                <th class="text-center" scope="col">Diseño</th>
+                                            </tr>
+                                        </thead>
+
+                                        <!-- LLENADAS MEDIANTE JSON -->
+                                        <tbody id="resDiarios"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Invitaciones -->
+                            <div class="col-12 col-lg-6">
+                                <div class="mt-5 mb-3">
+
+                                    <table class="table table-striped table-dark tablaCatalogoDB">
+                                        <h3 class="text-center">Invitaciones</h3>
+                                        <caption><small>Presiona alguna de las imagenes para ver en grande</small>
+                                        </caption>
+                                        <thead class="bg-info">
+                                            <tr>
+                                                <th class="text-center" scope="col">Codigo</th>
+                                                <th class="text-center" scope="col">Diseño</th>
+                                            </tr>
+                                        </thead>
+
+                                        <!-- LLENADAS MEDIANTE JSON -->
+                                        <tbody id="resInvitaciones"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Banderines -->
+                            <div class="col-12 col-lg-6">
+                                <div class="mt-5 mb-3">
+
+                                    <table class="table table-striped table-dark tablaCatalogoDB">
+                                        <h3 class="text-center">Banderines</h3>
+                                        <caption><small>Presiona alguna de las imagenes para ver en grande</small>
+                                        </caption>
+                                        <thead class="bg-info">
+                                            <tr>
+                                                <th class="text-center" scope="col">Codigo</th>
+                                                <th class="text-center" scope="col">Diseño</th>
+                                            </tr>
+                                        </thead>
+
+                                        <!-- LLENADAS MEDIANTE JSON -->
+                                        <tbody id="resBanderines"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
 
                 </div>
+                <!-- FIN: Contenido de la tabla de navegacion -->
+
+                <!-- Boton para borrar las cockies y cerrar sesion (redirecciona a Login) -->
+                <div class="col-8 offset-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+                    <div class="m-3 mt-5">
+                        <button tabindex="3" class="btn btn-danger btn-block" onclick="CerrarSesion()">Cerrar
+                            sesión</button>
+                    </div>
+                </div>
+
             </div>
+            <!-- FIN: Columna principal -->
 
         </div>
+        <!-- FIN: Row principal -->
 
     </div>
     <!-- FIN: CONTAINER DE LA PAGINA -->
@@ -57,12 +289,16 @@
     <!-- BOOTSTRAP .JS 4.3.1 -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
 
+    <!-- CDN DataTable -->
+    <script src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+
     <!-- AUTENTICACION DE FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js" type="text/javascript"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js" type="text/javascript"></script>
-    
+
     <!-- Se carga el script de Base de Datos firebase, para la descarga del Json (DB) -->
-    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js" type="text/javascript"></script> 
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js" type="text/javascript"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153083935-1"></script>
