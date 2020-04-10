@@ -115,43 +115,21 @@ function DescargarDB() {
     }
 }//FIN: DescargarDB
 
+//FUNCION: Borra la "Bases de datos indexadas", para que no siga almacenando la sesion activa del usuario.
+//         Despues de borrar la BDIndex, redirige al login.
 function CerrarSesion() {
     try {
-
-        /*
-        Note that this code has two limitations:
-        
-        It will not delete cookies with HttpOnly flag set, as the HttpOnly flag disables Javascript's access to the cookie.
-        It will not delete cookies that have been set with a Path value.
-        (This is despite the fact that those cookies will appear in document.cookie,
-            but you can't delete it without specifying the same Path value with which it was set.)
-        */
-        var cookies = document.cookie.split(";");
-
-        console.log("Antes de borrar");
-        console.log("cookies: " + cookies);
-        console.log("local: " + localStorage);
-        console.log("Sesion: " + sessionStorage);
-        console.log("IndexDB: " + indexedDB);
-
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i];
-            var eqPos = cookie.indexOf("=");
-            var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-        }
-
         localStorage.clear();
         sessionStorage.clear();
 
-        console.log("Despues de borrar");
-        console.log("cookies: " + cookies);
-        console.log("local: " + localStorage);
-        console.log("Sesion: " + sessionStorage);
+        window.indexedDB.databases().then((r) => {
+            for (var i = 0; i < r.length; i++) window.indexedDB.deleteDatabase(r[i].name);
+        }).then(() => {
+            // User is signed out.
+            window.location = "iniciarsesion.html";
+        });
 
-        // User is signed out.
-        // window.location = "iniciarsesion.html";
     } catch (ex) {
         uEscribirError(arguments, ex);
     }
-}
+}//FIN: CerrarSesion
