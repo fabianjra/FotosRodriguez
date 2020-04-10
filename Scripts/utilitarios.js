@@ -20,11 +20,11 @@ gtag('config', 'UA-153083935-1');
 ga('create', 'UA-153083935-1', 'auto');
 ga('send', 'pageview');
 
+//FUNCION: Obtiene el formato de CR y convierte el valor a formato con comas entre decimales y espacio entre miles.
 //PARAMS:
 //pValor: un numero entero sin formato, para devolverlo con formato en colon.
-//FUNCION: Obtiene el formato de CR y convierte el valor a formato con comas entre decimales y espacio entre miles.
 //RETURN: Valor con formato en string
-function uFormatoColon(pValor) {
+function uFormatoColonJS(pValor) {
 
     try {
         const formatoColon = new Intl.NumberFormat('es-CR', {
@@ -41,7 +41,128 @@ function uFormatoColon(pValor) {
         uEscribirError(arguments, ex);
         return '0';
     }
-}
+}//FIN: uFormatoColonJS
+
+//FUNCION: Convierte el valor a formato con comas entre miles y punto entre decimales.
+//PARAMS:
+//pValor: un numero entero sin formato y sin decimales, para devolverlo con formato en colon.
+//RETURN: Monto con formato en string, signo de colon, separador de miles con punto y separador decimales con coma.
+function uFormatoColonNoDecimales(pValor) {
+    try {
+        let montoSinFormato = uRemoverSignos(pValor);
+        montoSinFormato = uRemoverCerosIzquierda(montoSinFormato);
+        
+        let cantMonto = montoSinFormato.length;
+        let montoFinal = "0";
+
+        //partes para armar los separadores del monto final.
+        let parte1 = "";
+        let parte2 = "";
+        let parte3 = "";
+        switch (cantMonto) {
+            case 1:
+            case 2:
+            case 3:
+                montoFinal = uAgregarSimboloColonDecimales(montoSinFormato);
+                break;
+
+            case 4:
+                parte1 = montoSinFormato.substring(0, 1);
+                parte2 = montoSinFormato.substring(1, 4);
+                montoFinal = parte1 + "," + parte2;
+
+                montoFinal = uAgregarSimboloColonDecimales(montoFinal);
+                break;
+
+            case 5:
+                parte1 = montoSinFormato.substring(0, 2);
+                parte2 = montoSinFormato.substring(2, 5);
+                montoFinal = parte1 + "," + parte2;
+
+                montoFinal = uAgregarSimboloColonDecimales(montoFinal);
+                break;
+
+            case 6:
+                parte1 = montoSinFormato.substring(0, 2);
+                parte2 = montoSinFormato.substring(2, 5);
+                montoFinal = parte1 + "," + parte2;
+
+                montoFinal = uAgregarSimboloColonDecimales(montoFinal);
+                break;
+
+            case 7:
+                parte1 = montoSinFormato.substring(0, 1);
+                parte2 = montoSinFormato.substring(1, 4);
+                parte3 = montoSinFormato.substring(4, 7);
+                montoFinal = parte1 + "," + parte2 + "," + parte3;
+
+                montoFinal = uAgregarSimboloColonDecimales(montoFinal);
+                break;
+
+            case 8:
+                parte1 = montoSinFormato.substring(0, 2);
+                parte2 = montoSinFormato.substring(2, 5);
+                parte3 = montoSinFormato.substring(5, 8);
+                montoFinal = parte1 + "," + parte2 + "," + parte3;
+
+                montoFinal = uAgregarSimboloColonDecimales(montoFinal);
+                break;
+
+            case 9:
+                parte1 = montoSinFormato.substring(0, 3);
+                parte2 = montoSinFormato.substring(3, 6);
+                parte3 = montoSinFormato.substring(6, 9);
+                montoFinal = parte1 + "," + parte2 + "," + parte3;
+
+                montoFinal = uAgregarSimboloColonDecimales(montoFinal);
+                break;
+
+            default:
+                montoFinal = uAgregarSimboloColonDecimales(montoFinal);
+                break;
+        }
+
+        return montoFinal;
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+        return '0';
+    }
+}//FIN: uFormatoColonNoDecimales
+
+//FUNCION: Remueve los signos de un monto recibido.
+function uRemoverSignos(pValor) {
+    let valorRetorno = pValor;
+
+    valorRetorno = valorRetorno.replace('.', '');
+    valorRetorno = valorRetorno.replace(',', '');
+    valorRetorno = valorRetorno.replace('₡', '');
+    valorRetorno = valorRetorno.replace('¢', '');
+    valorRetorno = valorRetorno.replace('$', '');
+    valorRetorno = valorRetorno.replace('€', '');
+    valorRetorno = valorRetorno.replace(':', '');
+    valorRetorno = valorRetorno.replace(';', '');
+    valorRetorno = valorRetorno.replace('-', '');
+
+    return valorRetorno;
+}//FIN: uRemoverSignos
+
+//FUNCION: Agrega el simbolo de colon inicial y los decimales en ceros, al monto recibido como parametro.
+function uAgregarSimboloColonDecimales(pValor) {
+    return "₡" + pValor + ".00";
+}//FIN: uAgregarSimboloColonDecimales
+
+//FUNCION: Remueve los ceros a la izquierda de un monto recibido.
+function uRemoverCerosIzquierda(pValor) {
+    let primerCaracter = pValor.substr(0, 1);
+    let montoFinal = pValor;
+
+    while (primerCaracter == 0){
+        montoFinal = montoFinal.substring(1);
+        primerCaracter = montoFinal.substring(0, 1);
+    }
+
+    return montoFinal;
+}//FIN: uRemoverCerosIzquierda
 
 //FUNCION: Quita los espacion extremos a un strimg que se reciba como parametro.
 //RETURN: String recibido sin espacios a los extremos.

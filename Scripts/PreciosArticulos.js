@@ -68,7 +68,7 @@ function CargarPrecios(arregloJson) {
                         resTag.innerHTML += `
                 <tr>
                     <td class="text-center">${index.tamano}</td>
-                    <td class="text-center">${uFormatoColon(index.precio)}</td>
+                    <td class="text-center">${uFormatoColonNoDecimales(index.precio)}</td>
                 </tr>`
                     }
                 }
@@ -87,7 +87,7 @@ function CargarPrecios(arregloJson) {
                         resTag.innerHTML += `
                 <tr>
                     <td class="text-center">${index.tamano}</td>
-                    <td class="text-center">${uFormatoColon(index.precio)}</td>
+                    <td class="text-center">${uFormatoColonNoDecimales(index.precio)}</td>
                 </tr>`
                     }
                 }
@@ -106,7 +106,7 @@ function CargarPrecios(arregloJson) {
                         resTag.innerHTML += `
                 <tr>
                     <td class="text-center">${index.descripcion}</td>
-                    <td class="text-center">${uFormatoColon(index.precio)}</td>
+                    <td class="text-center">${uFormatoColonNoDecimales(index.precio)}</td>
                 </tr>`
                     }
                 }
