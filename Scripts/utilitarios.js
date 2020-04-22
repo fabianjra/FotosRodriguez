@@ -226,7 +226,7 @@ function uObtenerNavegador() {
     return browserName;
 }
 
-//FUNCION: Carga las credenciales para la cuenta "fabianjradev@gmail.com".
+//FUNCION: Carga las credenciales para la cuenta "****ev@******il.com".
 //RETURN: Objeto con los datos de las credenciales cargadas manualmente en esta funcion.
 function uCargarCredencialesFirebase() {
     // Your web app's Firebase configuration
