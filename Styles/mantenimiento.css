@@ -21,4 +21,9 @@
     .dataTables_filter > label{
         float: right !important;
       }
+
+      /* Cuando la pantalla es mediana o mayor, hace mas pequeñas las imagenes de los portatitulos (a la mitad) para que no abarquen tanto espacio en pantalla */
+      #imagenPortatitulo{
+        width: 40%;
+    }
 }

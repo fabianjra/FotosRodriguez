@@ -36,11 +36,20 @@
             </div>
         </div>
 
+        <!-- Usuario logueado -->
+        <div class="row">
+            <div class="col-12">
+                <div class="mb-3">
+                    <p id="lblNombreUsuario" class="text-center"></p>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col">
 
                 <div class="col-10 offset-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                    <div class="m-3 mt-5">
+                    <div>
                         <button tabindex="3" class="btn btn-info btn-block" onclick="DescargarDB()">Descargar copia de
                             seguridad</button>
                     </div>
@@ -84,7 +93,6 @@
                                             <tr>
                                                 <th class="text-center" scope="col">Codigo</th>
                                                 <th class="text-center" scope="col">Diseño</th>
-                                                <th class="text-center" scope="col">URL imagen</th>
                                                 <th class="text-center" scope="col">Modificar</th>
                                                 <th class="text-center" scope="col">Eliminar</th>
                                             </tr>
@@ -294,6 +302,47 @@
                     <div class="modal-body">
                         <img src="" class="imagenIncrustada" style="width: 100%;">
                     </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- FIN MODAL -->
+
+        <!-- MODAL PARA ACTUALIZAR EL URL DE UNA IMAGEN Y CODIGO -->
+        <div class="modal fade" id="modalModificar" tabindex="-1" role="dialog" aria-labelledby="modalModificar"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h4 id="lblCodigoItemTitulo" class="modal-title font-weight-bold">Titulo</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="lblCodigo">Codigo</span>
+                            </div>
+                            <input id="txtCodigoItem" type="text" class="form-control" aria-describedby="lblCodigo">
+                        </div>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="lblUrl">URL</span>
+                            </div>
+                            <input id="txtUrlItem" type="text" class="form-control" aria-describedby="lblUrl">
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button id="btnModificar" type="button" class="btn btn-info" data-objeto="" onclick="ModificarAceptarItem(this)">Aceptar</button>
+                      </div>
 
                 </div>
             </div>

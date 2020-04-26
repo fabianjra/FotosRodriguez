@@ -28,9 +28,11 @@ function ConsultaUsarioActivo() {
                 let emailVerified = user.emailVerified;
                 let photoURL = user.photoURL;
                 let isAnonymous = user.isAnonymous;
-                let uid = user.uid;
+                let uid = user.uid; //Id del usuario
                 let providerData = user.providerData;
-                //Can use the vars for wharever you want.
+
+                //Asigna el email del usuario logueado al label en pantalla.
+                document.getElementById("lblNombreUsuario").innerHTML = "<b>Usuario:</b> " + email;
 
                 existeUserActivo = true;
             } else {
@@ -156,14 +158,11 @@ function CargarCatalogo(arregloJson) {
                         <td class="text-center align-middle">${index.codigo}</td>
                         <td class="text-center">
                             <a href="#" onclick="MostrarPopUp(this)">
-                                <img src="${index.imagen}" class="img-fluid img-thumbnail" alt="${index.codigo}">
+                                <img id="imagenPortatitulo" src="${index.imagen}" class="img-fluid img-thumbnail" alt="${index.codigo}">
                             </a>
                         </td>
-
-                        <td class="text-center align-middle">${index.imagen}</td>
-
                         <td class="text-center align-middle">
-                        <button class="btn btn-info btn-warning">Modificar</button>
+                        <button class="btn btn-info btn-warning" data-url="${index.imagen}" data-codigo="${index.codigo}" data-objeto="${index}" onclick="ModificarPortatitulo(this)">Modificar</button>
                         </td>
 
                         <td class="text-center align-middle">
@@ -392,6 +391,140 @@ function MostrarPopUp(e) {
         $('.tituloIncrustado').text("Código: " + $(e).find('img').attr('alt'));
         $('.imagenIncrustada').attr('src', $(e).find('img').attr('src'));
         $('#modalImagen').modal('show');
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+}
+
+//FUNCION: Escucha el click del boton de modificar de la tabla de portatitulos.
+function ModificarPortatitulo(pBoton) {
+    try {
+        let urlItem = $(pBoton).data("url");
+        let codigoItem = $(pBoton).data("codigo");
+
+        $('#lblCodigoItemTitulo').text("Código: " + codigoItem);
+
+        $('#txtCodigoItem').val(codigoItem);
+        $('#txtUrlItem').val(urlItem);
+        $('#modalModificar').modal('show');
+
+        let datosobjeto = $(pBoton).data("objeto");
+        // console.log(datosobjeto);
+        $('#btnModificar').data("objeto", datosobjeto);
+
+
+
+
+
+
+
+
+
+
+
+        var database = firebase.database();
+        var ref = database.ref(COLECCION_CATALOGO).child('0/portatituloMayores');
+        ref.on('value', gotData, errData);
+
+        //Funcion para obtener el JSON de la base de datos, para el parametro "catalogo"
+        function gotData(data) {
+
+            data.forEach(function (childSnapshot) {
+                var childData = childSnapshot.val();
+
+                console.log(childData);
+            });
+
+        }
+
+        function errData(data) { }
+
+
+
+        // var ref = firebase.database().ref('catalogo/portatituloMayores');
+
+        // ref.on('value', function (snapshot) {
+        //     snapshot.forEach(function (childSnapshot) {
+        //         var childData = childSnapshot.val();
+
+        //         console.log(childData);
+        //     });
+        // })
+
+
+
+        // var leadsRef = firebase.database().ref(COLECCION_CATALOGO);
+
+        // leadsRef.on('value', function (snapshot) {
+        //     snapshot.forEach(function (childSnapshot) {
+        //         var childData = childSnapshot.val();
+
+        //         console.log(childData);
+        //     });
+        // });
+
+
+
+
+
+
+        // let codigo = "PC-01";
+
+        // firebase.database().ref(COLECCION_CATALOGO).child("portatituloMayores").orderByChild("codigo").equalTo("PC-01").once("value", function (snapshot) {
+        //     snapshot.forEach(function (childSnapshot) {
+
+        //         console.log(childSnapshot.val());
+
+        //         var cellNum = childSnapshot.val().CellNum;
+
+        //         console.log(cellNum);
+        //     });
+        // });
+
+
+
+
+
+
+
+
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+}//FIN: ModificarPortatitulo
+
+//Escucha al boton de aceptar modificar del modal, al seleccionar un item para modificarlo.
+function ModificarAceptarItem(pBoton) {
+    try {
+
+        let datosobjeto = $(pBoton).data("objeto");
+
+        console.log(datosobjeto);
+
+        // let codigo = "PC-01";
+
+
+        // var ref = firebase.database().ref(COLECCION_CATALOGO).orderByChild('portatituloMayores').equalTo(uid);
+
+
+        // ref.once('value', (snapshot) => {
+        //     const updates = {};
+        //     snapshot.forEach((child) => {
+        //         const userKey = child.key;
+        //         const userObject = child.val();
+        //         updates[`${userKey}/fieldWhichYouWantToUpdate`] = `Field Value you want it to set to`;
+        //         firebase.database().ref('/users/').update(updates);
+        //     });
+        // })
+
+
+
+
+
+
+
+
+
     } catch (ex) {
         uEscribirError(arguments, ex);
     }
