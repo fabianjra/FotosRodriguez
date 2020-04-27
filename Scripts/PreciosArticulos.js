@@ -1,5 +1,8 @@
-//Nombre de constantes: nombre de colecciones (padre de tablas)
+//Nombre de constantes: nombre de colecciones (tabla)
 const COLECCION_PRECIOS = 'precios';
+const TABLA_FOTO = 'foto';
+const TABLA_RETABLO = 'retablo';
+const TABLA_OTROS = 'otros';
 
 //Este archivo se carga solamente en la pagina de precios articulos, para cargar mediante un archivo JSON los precios
 //de los articulos que se tienen ahi, y se cargan en una tabla HTML de la pagina de precios articulos.
@@ -19,8 +22,10 @@ function IniciarFirebase() {
         }
 
         //Instancia de la conexion a la base de datos
-        var database = firebase.database();
+        //Se consulta la coleccion "precios", para obtener ambos arreglos (foto[], ratablo[])
+        var firebaseDB = firebase.database().ref(COLECCION_PRECIOS);
 
+        /*
         //Se consulta la coleccion "precios", para obtener ambos arreglos (foto[], ratablo[])
         var ref = database.ref(COLECCION_PRECIOS);
         ref.on('value', gotData, errData);
@@ -43,83 +48,126 @@ function IniciarFirebase() {
             console.log("Error al leer DB firebase: ->");
             console.log(err);
         }
+        */
+
+        CargarPrecios(firebaseDB);
 
     } catch (ex) {
         uEscribirError(arguments, ex);
     }
 }//FIN: CredencialesFirebase
 
-function CargarPrecios(arregloJson) {
+function CargarPrecios(pFirebaseDB) {
     try {
-        //Recorrido total del Json para obtener los precios de los articulos
-        for (let item of arregloJson) {
+        //Lectura de datos de la tabla Precios (padre).
+        pFirebaseDB.on('value', function (tablaPrecios) {
 
-            //Carga de precio de fotos
-            if (item.foto != null) {
-                if (item.foto.length > 0) {
+            //Instancia la tabla con "child", para solo accedeer a las filas de la tabla.
+            let tablaFotos = tablaPrecios.child(TABLA_FOTO);
 
-                    //Instancia del tag al que se le van a cargar los datos del Json
-                    //Por parametro, el nombre del ID del tag, en la pagina de precios
-                    let resTag = document.querySelector('#resPreciosFotos');
-                    resTag.innerHTML = '';
+            //Validar que la tabla tenga datos
+            if (tablaFotos != null && tablaFotos != undefined) {
+                if (tablaFotos.val().length > 0) {
 
-                    for (let index of item.foto) {
+                    //recorrer la tabla.
+                    tablaFotos.forEach(function (fila) {
+
+                        let item = fila.val();
+
+                        //Instancia del tag al que se le van a cargar los datos del Json
+                        //Por parametro, el nombre del ID del tag, en la pagina de precios
+                        let resTag = document.querySelector('#resPreciosFotos');
+
                         //Con comillas especiales, para mesclar con codigo HTML
                         resTag.innerHTML += `
-                <tr>
-                    <td class="text-center">${index.tamano}</td>
-                    <td class="text-center">${uFormatoColonNoDecimales(index.precio)}</td>
-                </tr>`
-                    }
-                }
-            }//FIN: IF = Si existen items para los precios de las fotos
+                            <tr>
+                                <td class="text-center">${item.tamano}</td>
+                                <td class="text-center">${uFormatoColonNoDecimales(item.precio)}</td>
+                            </tr>`
+                    });//FIN: FOREACH = recorrido de la tabla.
+                } else {
+                    let resTag = document.querySelector('#resPreciosFotos');
+                    resTag.innerHTML += '<tr><td class="text-center" colspan="2">No hay datos disponibles</td></tr>';
+                }//FIN: IF > 0.
+            } else {
+                let resTag = document.querySelector('#resPreciosFotos');
+                resTag.innerHTML += '<tr><td class="text-center" colspan="2">No hay datos disponibles</td></tr>';
+            }//FIN: IF != null.
 
-            //Carga de precio de retablos
-            if (item.retablo != null) {
-                if (item.retablo.length > 0) {
+            // ************************ SEPARACION DE TABLAS ************************ //
 
-                    //Instancia del tag al que se le van a cargar los datos del Json
-                    //Por parametro, el nombre del ID del tag, en la pagina de precios
+            //Instancia la tabla con "child", para solo accedeer a las filas de la tabla.
+            let tablaRetablos = tablaPrecios.child(TABLA_RETABLO);
+
+            //Validar que la tabla tenga datos
+            if (tablaRetablos != null && tablaRetablos != undefined) {
+                if (tablaRetablos.val().length > 0) {
+
+                    //recorrer la tabla.
+                    tablaRetablos.forEach(function (fila) {
+
+                        let item = fila.val();
+
+                        //Instancia del tag al que se le van a cargar los datos del Json
+                        //Por parametro, el nombre del ID del tag, en la pagina de precios
+                        let resTag = document.querySelector('#resPreciosRetablos');
+
+                        //Con comillas especiales, para mesclar con codigo HTML
+                        resTag.innerHTML += `
+                            <tr>
+                                <td class="text-center">${item.tamano}</td>
+                                <td class="text-center">${uFormatoColonNoDecimales(item.precio)}</td>
+                            </tr>`
+                    });//FIN: FOREACH = recorrido de la tabla.
+                } else {
                     let resTag = document.querySelector('#resPreciosRetablos');
-                    resTag.innerHTML = '';
+                    resTag.innerHTML += '<tr><td class="text-center" colspan="2">No hay datos disponibles</td></tr>';
+                }//FIN: IF > 0.
+            } else {
+                let resTag = document.querySelector('#resPreciosRetablos');
+                resTag.innerHTML += '<tr><td class="text-center" colspan="2">No hay datos disponibles</td></tr>';
+            }//FIN: IF != null.
 
-                    for (let index of item.retablo) {
+            // ************************ SEPARACION DE TABLAS ************************ //
+
+            //Instancia la tabla con "child", para solo accedeer a las filas de la tabla.
+            let tablaOtros = tablaPrecios.child(TABLA_OTROS);
+
+            //Validar que la tabla tenga datos
+            if (tablaOtros != null && tablaOtros != undefined) {
+                if (tablaOtros.val().length > 0) {
+
+                    //recorrer la tabla.
+                    tablaOtros.forEach(function (fila) {
+
+                        let item = fila.val();
+
+                        //Instancia del tag al que se le van a cargar los datos del Json
+                        //Por parametro, el nombre del ID del tag, en la pagina de precios
+                        let resTag = document.querySelector('#resPreciosOtros');
+
+                        //Con comillas especiales, para mesclar con codigo HTML
                         resTag.innerHTML += `
-                <tr>
-                    <td class="text-center">${index.tamano}</td>
-                    <td class="text-center">${uFormatoColonNoDecimales(index.precio)}</td>
-                </tr>`
-                    }
-                }
-            }//FIN: IF = Si existen items para los precios de los retablos
-
-            //Carga de precio de otros articulos (llaveros, jarras, etc.)
-            if (item.otros != null) {
-                if (item.otros.length > 0) {
-
-                    //Instancia del tag al que se le van a cargar los datos del Json
-                    //Por parametro, el nombre del ID del tag, en la pagina de precios
+                            <tr>
+                                <td class="text-center">${item.descripcion}</td>
+                                <td class="text-center">${uFormatoColonNoDecimales(item.precio)}</td>
+                            </tr>`
+                    });//FIN: FOREACH = recorrido de la tabla.
+                } else {
                     let resTag = document.querySelector('#resPreciosOtros');
-                    resTag.innerHTML = '';
+                    resTag.innerHTML += '<tr><td class="text-center" colspan="2">No hay datos disponibles</td></tr>';
+                }//FIN: IF > 0.
+            } else {
+                let resTag = document.querySelector('#resPreciosOtros');
+                resTag.innerHTML += '<tr><td class="text-center" colspan="2">No hay datos disponibles</td></tr>';
+            }//FIN: IF != null.
 
-                    for (let index of item.otros) {
-                        resTag.innerHTML += `
-                <tr>
-                    <td class="text-center">${index.descripcion}</td>
-                    <td class="text-center">${uFormatoColonNoDecimales(index.precio)}</td>
-                </tr>`
-                    }
-                }
-            }//FIN: IF = Si existen items para los precios de otros articulo
-
-
-        }//FIN: FOR = recorrido del JSON
+        });//FIN: pFirebaseDB.on (lectura de tabla de precios).
 
     } catch (ex) {
         uEscribirError(arguments, ex);
     }
 }//FIN: METODO = CargarPrecios
-
 
 
 // ************************ SIN USO *********************** //
