@@ -36,6 +36,8 @@ function IniciarFirebase() {
         //Instancia de la conexion a la base de datos
         var firebaseDB = firebase.database().ref(COLECCION_CATALOGO);
 
+        firebaseDB.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
+
         CargarCatalogo(firebaseDB);
 
         //(antiguo) Para los ID (keys) del arreglo, se hace de la siguiente manera:

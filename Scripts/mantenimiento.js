@@ -1,5 +1,23 @@
-//Nombre de constantes: nombre de colecciones (padre de tablas)
+//Nombre de constantes = nombre de colecciones (tablas).
 const COLECCION_CATALOGO = 'catalogo';
+const TABLA_PORTATITULO_MAYORES = 'portatituloMayores';
+const TABLA_PORTATITULO_MENORES = 'portatituloMenores';
+const TABLA_CINTA_MAYORES = 'cintaMayores';
+const TABLA_CINTA_MENORES = 'cintaMenores';
+const TABLA_CINTA_ESTOLA = 'cintaEstola';
+const TABLA_DIARIO = 'diario';
+const TABLA_BANDERIN = 'banderin';
+const TABLA_INVITACION = 'invitacion';
+
+//ID de las tablas. 
+const ID_TABLA_PORTATITULO_MAYORES = '#resPortatitulosMayores';
+const ID_TABLA_PORTATITULO_MENORES = '#resPortatitulosMenores';
+const ID_TABLA_CINTA_MAYORES = '#resCintasMayores';
+const ID_TABLA_CINTA_MENORES = '#resCintasMenores';
+const ID_TABLA_CINTA_ESTOLA = '#resCintasEstola';
+const ID_TABLA_DIARIO = '#resDiarios';
+const ID_TABLA_BANDERIN = '#resBanderines';
+const ID_TABLA_INVITACION = '#resInvitaciones';
 
 $(document).ready(function () {
     ConsultaUsarioActivo();
@@ -48,6 +66,7 @@ function ConsultaUsarioActivo() {
 }
 
 //Consulta la BD almacenada en Firebase y la descarga como un archivo Json de una sola hilera.
+//Se llama mediante el click del boton de la pagina de descargar copia de seguridad.
 function DescargarDB() {
     try {
         //Permite descargar la BD solamente si existe un usuario activo.
@@ -94,6 +113,7 @@ function CerrarSesion() {
 }//FIN: CerrarSesion
 
 //FUNCION: inicializa la carga de datos de la base de datos.
+//Carga los codigos y los URLs de las imagenes, mediante JSON en firebase
 function IniciarFirebase() {
     try {
         var firebaseConfig = uCargarCredencialesFirebase();
@@ -104,40 +124,302 @@ function IniciarFirebase() {
         }
 
         //Instancia de la conexion a la base de datos
-        var database = firebase.database();
+        var firebaseDB = firebase.database().ref(COLECCION_CATALOGO);
 
-        //Se consulta la coleccion "catalogo", para obtener ambos arreglos (portatitulo[], cinta[])
-        var ref = database.ref(COLECCION_CATALOGO);
-        ref.on('value', gotData, errData);
+        CargarCatalogo(firebaseDB);
 
-        //Funcion para obtener el JSON de la base de datos, para el parametro "catalogo"
-        function gotData(data) {
+        //(antiguo) Para los ID (keys) del arreglo, se hace de la siguiente manera:
+        // for (let item of arregloJson) {
+        //     var keys = Object.keys(item.portatituloMayores);
+        //     console.log(keys);
+        // }
 
-            //Obtiene el objecto JSON, solamente con los datos de la tabla "catalogo"
-            let arregloJson = data.val();
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+}//FIN: IniciarFirebase
 
-            //Para los ID (keys) del arreglo, se hace de la siguiente manera:
-            // for (let item of arregloJson) {
-            //     var keys = Object.keys(item.portatituloMayores);
-            //     console.log(keys);
-            // }
+//Se llanan las tablas
+function CargarCatalogo(pFirebaseDB) {
+    try {
+        /*
+        Se llena la lista con los nombres de las tablas y sus correspondientes ID en el HTML.
+        NOTA: Esta lista debe coincidir con las constantes declaradas al inicio de este .JS, ya que corresponde
+        a la cantidad total de filas en la BD de Firebase y a la cantidad de tablas en el HTML.
+        */
+        var listaTablas = [
+            { nombre: TABLA_PORTATITULO_MAYORES, id: ID_TABLA_PORTATITULO_MAYORES },
+            { nombre: TABLA_PORTATITULO_MENORES, id: ID_TABLA_PORTATITULO_MENORES },
+            { nombre: TABLA_CINTA_MAYORES, id: ID_TABLA_CINTA_MAYORES },
+            { nombre: TABLA_CINTA_MENORES, id: ID_TABLA_CINTA_MENORES },
+            { nombre: TABLA_CINTA_ESTOLA, id: ID_TABLA_CINTA_ESTOLA },
+            { nombre: TABLA_DIARIO, id: ID_TABLA_DIARIO },
+            { nombre: TABLA_BANDERIN, id: ID_TABLA_BANDERIN },
+            { nombre: TABLA_INVITACION, id: ID_TABLA_INVITACION }
+        ];
 
-            //Solo envia los dos arreglos: codigo y imagen.
-            CargarCatalogo(arregloJson);
-        }
+        //Lectura de datos de la tabla padre (catalogo).
+        pFirebaseDB.on('value', function (tablaCatalogo) {
 
-        function errData(err) {
-            console.error("Error al leer DB firebase: ->");
-            console.error(err);
-        }
+            //Recorrer la lista para asignar a cada tabla de HTML su correspondiente dato de cada fila de la DB.
+            for (let i = 0; i < listaTablas.length; i++) {
+
+                //Item que se recorre en el indice actual.
+                let itemListaTabla = listaTablas[i];
+
+                //Instancia la tabla con "child", para solo accedeer a las filas de la tabla.
+                let tabla = tablaCatalogo.child(itemListaTabla.nombre);
+
+                //Validar que la tabla tenga datos
+                if (tabla != null && tabla != undefined) {
+                    if (tabla.val() != null && tabla.val().length > 0) {
+
+                        //recorrer la tabla por cada fila.
+                        tabla.forEach(function (fila) {
+
+                            //Obtiene la fila, como un arreglo de JSON con los valores.
+                            let item = fila.val();
+
+                            //Instancia del tag al que se le van a cargar los datos del Json
+                            //Por parametro, el nombre del ID del tag, en la pagina de precios
+                            let resTag = document.querySelector(itemListaTabla.id);
+
+                            //Se convierte el objecto del item JSON a string, para almacenarlo en el boton como "data-objecto"
+                            let objetoItemString = encodeURIComponent(JSON.stringify(item));
+
+                            //Con comillas especiales, para mesclar con codigo HTML
+                            resTag.innerHTML += `
+                                <tr>
+                                    <td class="text-center align-middle">${item.codigo}</td>
+                                    <td class="text-center">
+                                        <a href="#" onclick="MostrarPopUp(this)">
+                                            <img id="imagenPortatitulo" src="${item.imagen}" class="img-fluid img-thumbnail" alt="${item.codigo}">
+                                        </a>
+                                    </td>
+                                    
+                                    <td class="text-center align-middle">
+                                    <button class="btn btn-info btn-warning" data-url="${item.imagen}" data-codigo="${item.codigo}" data-objeto="${objetoItemString}" onclick="ModificarPortatitulo(this)">Modificar</button>
+                                    </td>
+
+                                    <td class="text-center align-middle">
+                                    <button class="btn btn-info btn-danger">Eliminar</button>
+                                    </td>
+                                </tr>`
+                        });//FIN: FOREACH = recorrido de la tabla.
+
+                    } else {
+                        let resTag = document.querySelector(itemListaTabla.id);
+                        resTag.innerHTML += '<tr><td class="text-center" colspan="2">No hay datos disponibles</td></tr>';
+                    }//FIN: IF > 0.
+                } else {
+                    let resTag = document.querySelector(itemListaTabla.id);
+                    resTag.innerHTML += '<tr><td class="text-center" colspan="2">No hay datos disponibles</td></tr>';
+                }//FIN: IF != null.
+
+            }//FIN: FOR listaTablas.
+
+            //Agrega la función de datatable a la tabla.
+            $('.tablaCatalogoDB').DataTable({
+                language: {
+                    processing: "procesando...",
+                    search: "Buscar&nbsp;:",
+                    lengthMenu: "Mostrar: _MENU_",
+                    info: "Item _START_ al _END_ de _TOTAL_",
+                    infoEmpty: "No existen datos",
+                    infoFiltered: "(_MAX_ encontrados)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    zeroRecords: "No se encontraron datos",
+                    emptyTable: "No hay datos disponibles.",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    },
+                    aria: {
+                        sortAscending: ": active para ordenar la columna en orden ascendente",
+                        sortDescending: ": active para ordenar la columna en orden descendente"
+                    }
+                },
+                lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "Todos"]]
+            });
+
+            //Centra el NAV de paginacion (quita la clase de columna para los md)
+            //Recorre la cantidad de tablas que hay, para removerle a cada una el elemento de info (cantidad de elementos en la tabla).
+            let cantidadTablas = document.getElementsByClassName('dataTables_wrapper').length;
+            for (let i = 0; i < cantidadTablas; i++) {
+                $('#DataTables_Table_' + i + '_wrapper').children().eq(2).children().eq(0).remove();
+                $('#DataTables_Table_' + i + '_wrapper').children().eq(2).children().eq(0).removeClass('col-md-7');
+            }
+
+            //*********** SIN USO, SE DEBE HACER CON BOTON ***********//
+            //Sube el scroll en caso de cambiar de pagina
+            // $('.tablaScrollUp').on('page.dt', function () {
+            //     $('html, body').animate({
+            //         scrollTop: $(".dataTables_wrapper").offset().top
+            //     }, 'slow');
+            // });
+
+        });//FIN: pFirebaseDB.on (lectura de tabla padre, Catalogo).
+
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+}//FIN: METODO = CargarCatalogo
+
+//Esta funcion toma la imagen a la que se le hace un click,
+//luego toma la etiqueta de imagen y le agrega al source, la imagen que se seleccionó.
+//Finalmente muestra el modal.
+//El modal tiene un boton para cerrar el modal.
+function MostrarPopUp(e) {
+    try {
+        //Esta funcion evita que la pantalla se mueva hacia el TOP, cuando se hacer click en una
+        //imagen y se muestra el Modal (evento ajax).
+        event.preventDefault();
+
+        //Toma el valor del tag "alt" y lo coloca en el texto del POPUP. (el texto del alt tag, es igual al codigo, valor obtenido de firebase).
+        $('.tituloIncrustado').text("Código: " + $(e).find('img').attr('alt'));
+        $('.imagenIncrustada').attr('src', $(e).find('img').attr('src'));
+        $('#modalImagen').modal('show');
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+}
+
+//FUNCION: Escucha el click del boton de modificar de las tablas.
+function ModificarPortatitulo(pBoton) {
+    try {
+        //Se obtiene el String del objeto seleccionado, se decodifica y se parsea a JSON para ser manipulable.
+        let objectoString = pBoton.getAttribute('data-objeto');
+        let objetoItem = JSON.parse(decodeURIComponent(objectoString));
+
+        let urlItem = objetoItem.imagen;
+        let codigoItem = objetoItem.codigo;
+
+        // console.log(objetoItem);
+        // console.log(urlItem);
+        // console.log(codigoItem);
+
+        //Asigna al PopUp, los textos del item seleccionado.
+        $('#lblCodigoItemTitulo').text("Código: " + codigoItem);
+
+        $('#txtCodigoItem').val(codigoItem);
+        $('#txtUrlItem').val(urlItem);
+        $('#modalModificar').modal('show');
+
+        //Se borra el atributo "data-" para volver a ser asignado.
+        //Se asigna el objeto al boton de aceptar, como un string (originalmente obtenido).
+        document.querySelector('#btnModificarAceptar').removeAttribute('data-objeto');
+        document.querySelector('#btnModificarAceptar').setAttribute('data-objeto', objectoString);
+
+
+        // var ref = firebase.database().ref('catalogo/portatituloMayores');
+
+        // ref.on('value', function (snapshot) {
+        //     snapshot.forEach(function (childSnapshot) {
+        //         var childData = childSnapshot.val();
+
+        //         console.log(childData);
+        //     });
+        // })
+
+
+
+        // var leadsRef = firebase.database().ref(COLECCION_CATALOGO);
+
+        // leadsRef.on('value', function (snapshot) {
+        //     snapshot.forEach(function (childSnapshot) {
+        //         var childData = childSnapshot.val();
+
+        //         console.log(childData);
+        //     });
+        // });
+
+
+
+
+
+
+        // let codigo = "PC-01";
+
+        // firebase.database().ref(COLECCION_CATALOGO).child("portatituloMayores").orderByChild("codigo").equalTo("PC-01").once("value", function (snapshot) {
+        //     snapshot.forEach(function (childSnapshot) {
+
+        //         console.log(childSnapshot.val());
+
+        //         var cellNum = childSnapshot.val().CellNum;
+
+        //         console.log(cellNum);
+        //     });
+        // });
+
+
+
+
+
+
+
+
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+}//FIN: ModificarPortatitulo
+
+//Escucha al boton de aceptar modificar del modal, al seleccionar un item para modificarlo.
+function ModificarAceptarItem(pBoton) {
+    try {
+        //Otra forma de obtner el valor de "data-"
+        //const ejemplo = pBoton.dataset.objeto;
+
+        //Se obtiene el String del objeto seleccionado, se decodifica y se parsea a JSON para ser manipulable.
+        let objectoString = pBoton.getAttribute('data-objeto');
+        let objetoItem = JSON.parse(decodeURIComponent(objectoString));
+
+        let urlItem = objetoItem.imagen;
+        let codigoItem = objetoItem.codigo;
+
+        console.log(objetoItem);
+
+        // let codigo = "PC-01";
+
+
+        var ref = firebase.database().ref(COLECCION_CATALOGO).child(TABLA_PORTATITULO_MAYORES);
+
+        ref.once('value')
+            .then(function (items) {
+                console.log(items.val());
+            })
+
+
+
+
+        // ref.once('value', (snapshot) => {
+        //     const updates = {};
+        //     snapshot.forEach((child) => {
+        //         const userKey = child.key;
+        //         const userObject = child.val();
+        //         updates[`${userKey}/fieldWhichYouWantToUpdate`] = `Field Value you want it to set to`;
+        //         firebase.database().ref('/users/').update(updates);
+        //     });
+        // })
+
+
+
+
+
+
+
+
 
     } catch (ex) {
         uEscribirError(arguments, ex);
     }
 }
 
-//Se llanan las tablas
-function CargarCatalogo(arregloJson) {
+// ************************ SIN USO *********************** //
+
+function CargarCatalogoViejo(arregloJson) {
     try {
         //Recorrido total del Json filtrado
         for (let item of arregloJson) {
@@ -376,156 +658,3 @@ function CargarCatalogo(arregloJson) {
         uEscribirError(arguments, ex);
     }
 }//FIN: METODO = CargarCatalogo
-
-//Esta funcion toma la imagen a la que se le hace un click,
-//luego toma la etiqueta de imagen y le agrega al source, la imagen que se seleccionó.
-//Finalmente muestra el modal.
-//El modal tiene un boton para cerrar el modal.
-function MostrarPopUp(e) {
-    try {
-        //Esta funcion evita que la pantalla se mueva hacia el TOP, cuando se hacer click en una
-        //imagen y se muestra el Modal (evento ajax).
-        event.preventDefault();
-
-        //Toma el valor del tag "alt" y lo coloca en el texto del POPUP. (el texto del alt tag, es igual al codigo, valor obtenido de firebase).
-        $('.tituloIncrustado').text("Código: " + $(e).find('img').attr('alt'));
-        $('.imagenIncrustada').attr('src', $(e).find('img').attr('src'));
-        $('#modalImagen').modal('show');
-    } catch (ex) {
-        uEscribirError(arguments, ex);
-    }
-}
-
-//FUNCION: Escucha el click del boton de modificar de la tabla de portatitulos.
-function ModificarPortatitulo(pBoton) {
-    try {
-        let urlItem = $(pBoton).data("url");
-        let codigoItem = $(pBoton).data("codigo");
-
-        $('#lblCodigoItemTitulo').text("Código: " + codigoItem);
-
-        $('#txtCodigoItem').val(codigoItem);
-        $('#txtUrlItem').val(urlItem);
-        $('#modalModificar').modal('show');
-
-        let datosobjeto = $(pBoton).data("objeto");
-        // console.log(datosobjeto);
-        $('#btnModificar').data("objeto", datosobjeto);
-
-
-
-
-
-
-
-
-
-
-
-        var database = firebase.database();
-        var ref = database.ref(COLECCION_CATALOGO).child('0/portatituloMayores');
-        ref.on('value', gotData, errData);
-
-        //Funcion para obtener el JSON de la base de datos, para el parametro "catalogo"
-        function gotData(data) {
-
-            data.forEach(function (childSnapshot) {
-                var childData = childSnapshot.val();
-
-                console.log(childData);
-            });
-
-        }
-
-        function errData(data) { }
-
-
-
-        // var ref = firebase.database().ref('catalogo/portatituloMayores');
-
-        // ref.on('value', function (snapshot) {
-        //     snapshot.forEach(function (childSnapshot) {
-        //         var childData = childSnapshot.val();
-
-        //         console.log(childData);
-        //     });
-        // })
-
-
-
-        // var leadsRef = firebase.database().ref(COLECCION_CATALOGO);
-
-        // leadsRef.on('value', function (snapshot) {
-        //     snapshot.forEach(function (childSnapshot) {
-        //         var childData = childSnapshot.val();
-
-        //         console.log(childData);
-        //     });
-        // });
-
-
-
-
-
-
-        // let codigo = "PC-01";
-
-        // firebase.database().ref(COLECCION_CATALOGO).child("portatituloMayores").orderByChild("codigo").equalTo("PC-01").once("value", function (snapshot) {
-        //     snapshot.forEach(function (childSnapshot) {
-
-        //         console.log(childSnapshot.val());
-
-        //         var cellNum = childSnapshot.val().CellNum;
-
-        //         console.log(cellNum);
-        //     });
-        // });
-
-
-
-
-
-
-
-
-    } catch (ex) {
-        uEscribirError(arguments, ex);
-    }
-}//FIN: ModificarPortatitulo
-
-//Escucha al boton de aceptar modificar del modal, al seleccionar un item para modificarlo.
-function ModificarAceptarItem(pBoton) {
-    try {
-
-        let datosobjeto = $(pBoton).data("objeto");
-
-        console.log(datosobjeto);
-
-        // let codigo = "PC-01";
-
-
-        // var ref = firebase.database().ref(COLECCION_CATALOGO).orderByChild('portatituloMayores').equalTo(uid);
-
-
-        // ref.once('value', (snapshot) => {
-        //     const updates = {};
-        //     snapshot.forEach((child) => {
-        //         const userKey = child.key;
-        //         const userObject = child.val();
-        //         updates[`${userKey}/fieldWhichYouWantToUpdate`] = `Field Value you want it to set to`;
-        //         firebase.database().ref('/users/').update(updates);
-        //     });
-        // })
-
-
-
-
-
-
-
-
-
-    } catch (ex) {
-        uEscribirError(arguments, ex);
-    }
-}
