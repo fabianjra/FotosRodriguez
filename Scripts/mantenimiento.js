@@ -174,6 +174,9 @@ function CargarCatalogo(pFirebaseDB) {
                 if (tabla != null && tabla != undefined) {
                     if (tabla.val() != null && tabla.val().length > 0) {
 
+                        //contador para cada item de cada tabla. ejem: porta -> 0,1,2... || cintas -> 0,1,2...
+                        let contadorPorTabla = 0;
+
                         //recorrer la tabla por cada fila.
                         tabla.forEach(function (fila) {
 
@@ -191,6 +194,7 @@ function CargarCatalogo(pFirebaseDB) {
                             resTag.innerHTML += `
                                 <tr>
                                     <td class="text-center align-middle">${item.codigo}</td>
+
                                     <td class="text-center">
                                         <a href="#" onclick="MostrarPopUp(this)">
                                             <img id="imagenPortatitulo" src="${item.imagen}" class="img-fluid img-thumbnail" alt="${item.codigo}">
@@ -198,13 +202,19 @@ function CargarCatalogo(pFirebaseDB) {
                                     </td>
                                     
                                     <td class="text-center align-middle">
-                                    <button class="btn btn-info btn-warning" data-url="${item.imagen}" data-codigo="${item.codigo}" data-objeto="${objetoItemString}" onclick="ModificarPortatitulo(this)">Modificar</button>
+                                        <button class="btn btn-info btn-warning"
+                                        data-index="${contadorPorTabla}" data-tabla="${itemListaTabla.nombre}" data-objeto="${objetoItemString}"
+                                        onclick="ModificarPortatitulo(this)">Modificar</button>
                                     </td>
 
                                     <td class="text-center align-middle">
-                                    <button class="btn btn-info btn-danger">Eliminar</button>
+                                        <button class="btn btn-info btn-danger">Eliminar</button>
                                     </td>
                                 </tr>`
+
+                            //Se suma uno al contador, para que al siguiente item, se le asigne correctamente el index que le corresponde.
+                            contadorPorTabla++;
+
                         });//FIN: FOREACH = recorrido de la tabla.
 
                     } else {
@@ -218,32 +228,7 @@ function CargarCatalogo(pFirebaseDB) {
 
             }//FIN: FOR listaTablas.
 
-            //Agrega la función de datatable a la tabla.
-            $('.tablaCatalogoDB').DataTable({
-                language: {
-                    processing: "procesando...",
-                    search: "Buscar&nbsp;:",
-                    lengthMenu: "Mostrar: _MENU_",
-                    info: "Item _START_ al _END_ de _TOTAL_",
-                    infoEmpty: "No existen datos",
-                    infoFiltered: "(_MAX_ encontrados)",
-                    infoPostFix: "",
-                    loadingRecords: "Cargando...",
-                    zeroRecords: "No se encontraron datos",
-                    emptyTable: "No hay datos disponibles.",
-                    paginate: {
-                        first: "Primero",
-                        previous: "Anterior",
-                        next: "Siguiente",
-                        last: "Ultimo"
-                    },
-                    aria: {
-                        sortAscending: ": active para ordenar la columna en orden ascendente",
-                        sortDescending: ": active para ordenar la columna en orden descendente"
-                    }
-                },
-                lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "Todos"]]
-            });
+            IniciarDataTable();
 
             //Centra el NAV de paginacion (quita la clase de columna para los md)
             //Recorre la cantidad de tablas que hay, para removerle a cada una el elemento de info (cantidad de elementos en la tabla).
@@ -267,6 +252,36 @@ function CargarCatalogo(pFirebaseDB) {
         uEscribirError(arguments, ex);
     }
 }//FIN: METODO = CargarCatalogo
+
+function IniciarDataTable() {
+
+    //Agrega la función de datatable a la tabla.
+    $('.tablaCatalogoDB').DataTable({
+        language: {
+            processing: "procesando...",
+            search: "Buscar&nbsp;:",
+            lengthMenu: "Mostrar: _MENU_",
+            info: "Item _START_ al _END_ de _TOTAL_",
+            infoEmpty: "No existen datos",
+            infoFiltered: "(_MAX_ encontrados)",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            zeroRecords: "No se encontraron datos",
+            emptyTable: "No hay datos disponibles.",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            },
+            aria: {
+                sortAscending: ": active para ordenar la columna en orden ascendente",
+                sortDescending: ": active para ordenar la columna en orden descendente"
+            },
+        },
+        lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "Todos"]]
+    });
+}
 
 //Esta funcion toma la imagen a la que se le hace un click,
 //luego toma la etiqueta de imagen y le agrega al source, la imagen que se seleccionó.
@@ -297,9 +312,13 @@ function ModificarPortatitulo(pBoton) {
         let urlItem = objetoItem.imagen;
         let codigoItem = objetoItem.codigo;
 
+        //Se obtiene el index del item y la tabla a la que pertenece.
+        let indexItem = pBoton.getAttribute('data-index');
+        let tablaItem = pBoton.getAttribute('data-tabla');
+
         // console.log(objetoItem);
-        // console.log(urlItem);
-        // console.log(codigoItem);
+        // console.log(indexItem);
+        // console.log(tablaItem);
 
         //Asigna al PopUp, los textos del item seleccionado.
         $('#lblCodigoItemTitulo').text("Código: " + codigoItem);
@@ -312,6 +331,12 @@ function ModificarPortatitulo(pBoton) {
         //Se asigna el objeto al boton de aceptar, como un string (originalmente obtenido).
         document.querySelector('#btnModificarAceptar').removeAttribute('data-objeto');
         document.querySelector('#btnModificarAceptar').setAttribute('data-objeto', objectoString);
+
+        document.querySelector('#btnModificarAceptar').removeAttribute('data-index');
+        document.querySelector('#btnModificarAceptar').setAttribute('data-index', indexItem);
+
+        document.querySelector('#btnModificarAceptar').removeAttribute('data-tabla');
+        document.querySelector('#btnModificarAceptar').setAttribute('data-tabla', tablaItem);
 
 
         // var ref = firebase.database().ref('catalogo/portatituloMayores');
@@ -369,49 +394,64 @@ function ModificarPortatitulo(pBoton) {
 //Escucha al boton de aceptar modificar del modal, al seleccionar un item para modificarlo.
 function ModificarAceptarItem(pBoton) {
     try {
-        //Otra forma de obtner el valor de "data-"
-        //const ejemplo = pBoton.dataset.objeto;
 
-        //Se obtiene el String del objeto seleccionado, se decodifica y se parsea a JSON para ser manipulable.
-        let objectoString = pBoton.getAttribute('data-objeto');
-        let objetoItem = JSON.parse(decodeURIComponent(objectoString));
+        //document.getElementById('lblError').value = ""; //F: TODO
 
-        let urlItem = objetoItem.imagen;
-        let codigoItem = objetoItem.codigo;
+        let txtCodigo = document.getElementById('txtCodigoItem').value;
+        let txtUrlImagen = document.getElementById('txtUrlItem').value;
 
-        console.log(objetoItem);
+        //Validar que el codigo o el url de la imagen, no esten vacios.
+        if (uTrim(txtCodigo) == "" || uTrim(txtUrlImagen) == "") {
+            //document.getElementById('lblError').innerHTML = "Se deben ingresar los campos"; //F: TODO
+        } else {
 
-        // let codigo = "PC-01";
+            //Otra forma de obtner el valor de "data-"
+            //const ejemplo = pBoton.dataset.objeto;
+
+            //Se obtiene el String del objeto seleccionado, se decodifica y se parsea a JSON para ser manipulable.
+            let objectoString = pBoton.getAttribute('data-objeto');
+            let objetoItem = JSON.parse(decodeURIComponent(objectoString));
+
+            let urlItem = objetoItem.imagen;
+            let codigoItem = objetoItem.codigo;
+
+            //Se obtiene el index del item y la tabla a la que pertenece.
+            let indexItem = pBoton.getAttribute('data-index');
+            let tablaItem = pBoton.getAttribute('data-tabla');
+
+            var ref = firebase.database().ref(COLECCION_CATALOGO).child(tablaItem).child(indexItem);
+
+            ref.on('value', function (item) {
+
+                //Actualizar el item seleccionado
+                item.ref.update({
+                    codigo: txtCodigo,
+                    imagen: txtUrlImagen
+                })
+            },
+                function (errorObject) {
+                    console.log("No se pudo actualizar el item seleccionado: " + errorObject.code);
+                });
+
+            // ref.once('value')
+            //     .then(function (items) {
+            //         console.log(items.val());
+            //     })
 
 
-        var ref = firebase.database().ref(COLECCION_CATALOGO).child(TABLA_PORTATITULO_MAYORES);
-
-        ref.once('value')
-            .then(function (items) {
-                console.log(items.val());
-            })
 
 
+            // ref.once('value', (snapshot) => {
+            //     const updates = {};
+            //     snapshot.forEach((child) => {
+            //         const userKey = child.key;
+            //         const userObject = child.val();
+            //         updates[`${userKey}/fieldWhichYouWantToUpdate`] = `Field Value you want it to set to`;
+            //         firebase.database().ref('/users/').update(updates);
+            //     });
+            // })
 
-
-        // ref.once('value', (snapshot) => {
-        //     const updates = {};
-        //     snapshot.forEach((child) => {
-        //         const userKey = child.key;
-        //         const userObject = child.val();
-        //         updates[`${userKey}/fieldWhichYouWantToUpdate`] = `Field Value you want it to set to`;
-        //         firebase.database().ref('/users/').update(updates);
-        //     });
-        // })
-
-
-
-
-
-
-
-
-
+        }//FIN IF: Validar que el codigo o el url de la imagen, no esten vacios.
     } catch (ex) {
         uEscribirError(arguments, ex);
     }
