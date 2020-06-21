@@ -134,10 +134,10 @@ function CargarCatalogo(pFirebaseDB) {
                     zeroRecords: "No se encontraron datos",
                     emptyTable: "No hay datos disponibles.",
                     paginate: {
-                        first: "Primero",
-                        previous: "Anterior",
-                        next: "Siguiente",
-                        last: "Ultimo"
+                        first: ">>",
+                        previous: "<",
+                        next: ">",
+                        last: ">>"
                     },
                     aria: {
                         sortAscending: ": active para ordenar la columna en orden ascendente",
