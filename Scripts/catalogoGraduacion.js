@@ -36,7 +36,8 @@ function IniciarFirebase() {
         //Instancia de la conexion a la base de datos
         var firebaseDB = firebase.database().ref(COLECCION_CATALOGO);
 
-        firebaseDB.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
+        //Se comenta, porque esta provocando error.
+        /// firebaseDB.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
 
         CargarCatalogo(firebaseDB);
 
