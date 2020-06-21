@@ -255,6 +255,9 @@ function CargarCatalogo(pFirebaseDB) {
 
 function IniciarDataTable() {
 
+    //Limita la cantidad de items visible en la paginacion a 5, para no hacer mas amplia la pantalla.
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
     //Agrega la función de datatable a la tabla.
     $('.tablaCatalogoDB').DataTable({
         language: {
