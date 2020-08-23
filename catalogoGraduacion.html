@@ -42,18 +42,20 @@
 
                 <ul class="nav nav-tabs justify-content-center" id="" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="portatiulo-tab" data-toggle="tab" href="#portatiulo" role="tab"
-                            aria-controls="portatiulo" aria-selected="true">Portatitulos</a>
+                        <a title="Click para ver los portatitulos" class="nav-link active" id="portatiulo-tab"
+                            data-toggle="tab" href="#portatiulo" role="tab" aria-controls="portatiulo"
+                            aria-selected="true">Portatitulos</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" id="cinta-tab" data-toggle="tab" href="#cinta" role="tab"
-                            aria-controls="cinta" aria-selected="false">Cintas</a>
+                        <a title="Click para ver las cintas" title="" class="nav-link" id="cinta-tab" data-toggle="tab"
+                            href="#cinta" role="tab" aria-controls="cinta" aria-selected="false">Cintas</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" id="otros-tab" data-toggle="tab" href="#otros" role="tab"
-                            aria-controls="otros" aria-selected="false">Otros</a>
+                        <a title="Click para ver otros artículos de graduación" class="nav-link" id="otros-tab"
+                            data-toggle="tab" href="#otros" role="tab" aria-controls="otros"
+                            aria-selected="false">Otros</a>
                     </li>
                 </ul>
 
@@ -268,7 +270,8 @@
 
                     <div class="modal-header">
                         <h4 class="modal-title font-weight-bold tituloIncrustado">Titulo</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button title="Cerra ventana" type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -276,6 +279,26 @@
                     <div class="modal-body">
                         <img src="" class="imagenIncrustada" style="width: 100%;">
                     </div>
+
+                    <div class="modal-footer">
+
+                        <div class="row">
+                            <div class="col-12">
+                                <span>Solicitar el artículo por:</span>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="float-right">
+                                    <button title="Solicitar por email" type="button" class="btn btn-info"
+                                        onclick="SolicitarCatalogoEmail()">Email</button>
+                                    <button title="Solicitar por whatsapp" type="button" class="btn btn-info"
+                                        onclick="SolicitarCatalogoWhatsapp()">Whatsapp</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIN FOOTER MODAL -->
 
                 </div>
             </div>

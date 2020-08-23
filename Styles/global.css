@@ -35,8 +35,8 @@ body{
     transition: all 1s;
 }
 
-/* Para hacer que el titulo de la pagina dentro del navbar y el logo, sean un link al Home Screen */
-.linkTituloNavbar{
+/* Se utiliza el pointer del mouse como una mano, para indicar que es enlace */
+.cursorPointer{
     cursor: pointer;
 }
 

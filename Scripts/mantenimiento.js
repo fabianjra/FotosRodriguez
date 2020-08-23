@@ -299,6 +299,7 @@ function MostrarPopUp(e) {
         //Toma el valor del tag "alt" y lo coloca en el texto del POPUP. (el texto del alt tag, es igual al codigo, valor obtenido de firebase).
         $('.tituloIncrustado').text("Código: " + $(e).find('img').attr('alt'));
         $('.imagenIncrustada').attr('src', $(e).find('img').attr('src'));
+        $('.imagenIncrustada').attr('alt', $(e).find('img').attr('alt')); //Le asigna el codigo del articulo, al atributo de la imagen "alt".
         $('#modalImagen').modal('show');
     } catch (ex) {
         uEscribirError(arguments, ex);

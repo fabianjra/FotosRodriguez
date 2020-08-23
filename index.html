@@ -56,7 +56,7 @@
                     <p>Realizamos fotos para sus graduaciones, incluyendo paquetes que se ajusten
                         a sus necesidades.
                     </p>
-                    <button type="button" class="btn btn-light"
+                    <button title="Ver el catálogo de paquetes de graduación" type="button" class="btn btn-light"
                         onclick="window.location.href='catalogograduacion.html'">Ver más</button>
                 </div>
             </div>
@@ -68,7 +68,8 @@
                     <h3>Tazas personalizadas</h3>
                     <p>Creamos el diseño a su gusto, a demás de platos de todas las medidas.
                     </p>
-                    <button type="button" class="btn btn-light">Ver más</button>
+                    <button title="Ver el precio de las tazas" type="button" class="btn btn-light"
+                        onclick="window.location.href='preciosarticulos.html'">Ver más</button>
                 </div>
             </div>
 
@@ -79,7 +80,7 @@
                     <h3>Retablos fotográficos</h3>
                     <p>Creamos retablos de diferentes medidas para su gusto, con la foto o imagen que desee.
                     </p>
-                    <button type="button" class="btn btn-light"
+                    <button title="Ver el precio de los retablos" type="button" class="btn btn-light"
                         onclick="window.location.href='preciosarticulos.html'">Ver más</button>
                 </div>
             </div>
@@ -140,7 +141,7 @@
                     <div class="row">
 
                         <div class="col-12 col-md-4 text-center p-3 fondoGrisHover">
-                            <a href="https://goo.gl/maps/gzoDQn9V5NYZFXKy6" target="_blank" onclick="ClickUbicacion()">
+                            <a title="Ver ubicación en el mapa" class="cursorPointer" onclick="ClickUbicacionGeneral()">
                                 <img src="Resources/Contacto/imgMapa.png" alt="">
                                 <h5 class="hoverLinkVerde">Ubicación</h5>
                                 <p class="hoverLinkVerde">Puedes encontrarnos pulsando el mapa para ver la dirección en
@@ -149,20 +150,16 @@
                         </div>
 
                         <div class="col-12 col-md-4 text-center p-3 fondoGrisHover">
-                            <a href="mailto:fotos-rodriguez@hotmail.com?subject=Información sobre fotos&body=Hola! ví la pagina en internet y quisiera obtener información"
-                                onclick="ClickEmail()">
+                            <a title="Enviar email" class="cursorPointer" onclick="ClickEmailGeneral()">
                                 <img src="Resources/Contacto/imgMail.png" alt="">
                                 <h5 class="hoverLinkVerde">Correo</h5>
                                 <p class="hoverLinkVerde">Escribenos por correo electrónico si deseas más información o
-                                    cotización sobre
-                                    paquetes
-                                    fotograficos.</p>
+                                    cotización sobre paquetes fotograficos.</p>
                             </a>
                         </div>
 
                         <div class="col-12 col-md-4 text-center p-3 fondoGrisHover">
-                            <a href="https://wa.me/50689788992?text=Hola%20estoy%20interesado%20en%20información%20sobre%20fotos"
-                                target="_blank" onclick="ClickWhatsApp()">
+                            <a title="Enviar mensaje por whatsapp" class="cursorPointer" onclick="ClickWhatsappGeneral()">
                                 <img src="Resources/Contacto/imgPhone.png" alt="">
                                 <h5 class="hoverLinkVerde">Whatsapp</h5>
                                 <p class="hoverLinkVerde">Si tienes alguna consulta rápida, puedes escribenos y con

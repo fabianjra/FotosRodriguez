@@ -14,6 +14,11 @@
     font-weight: bold;
 }
 
+/* Los items en el footer quedan con espacios a los lados, se quita utilizando block para abarcar todo el espacio */
+.modal-footer{
+    display: block !important;
+}
+
 /*Solo para tamaños de 768px o mas (momento al usar COL-SM)*/
 @media (min-width: 768px){
 

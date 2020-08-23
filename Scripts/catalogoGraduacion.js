@@ -101,12 +101,54 @@ function CargarCatalogo(pFirebaseDB) {
                             resTag.innerHTML += `
                                 <tr>
                                     <td class="text-center align-middle">${item.codigo}</td>
-                                    <td class="text-center w-50">
-                                        <a href="#" onclick="MostrarPopUp(this)">
-                                            <img src="${item.imagen}" class="img-fluid img-thumbnail" alt="${item.codigo}">
+                                    <td id="${item.codigo}" class="text-center w-50">
+                                        <a title="click para ver en grande" onclick="MostrarPopUp(this)">
+                                            <img src="${item.imagen}" class="img-fluid img-thumbnail cursorPointer" alt="${item.codigo}">
                                         </a>
                                     </td>
                                 </tr>`
+
+                            //Obtener el nodo sobre el cual esta actualmente en el recorrdido.
+                            let codigoArticulo = `${item.codigo}`;
+                            let codigoArticuloFormato = codigoArticulo.replace(/\s/g, '\\ '); // QuerySelector no funciona si el "#ID" contiene espacios. se reemplazan por su equivalente.
+                            let tdNodo = document.querySelector("#" + codigoArticuloFormato);
+                            //let tdNodo = document.getElementById(codigoArticulo); -> geyElementById funciona solo para lo que ya esta creado. (no sirve en caliente)
+
+                            //Busca el nodo DIV que contiene el encabezado de la tabla.
+                            if (tdNodo != null && tdNodo != undefined) {
+
+                                //Agregar al nodo de la imagen, el data-encabezado, para guardar el encabezado al que pertenece
+                                let aNodo = tdNodo.firstElementChild;
+                                if (aNodo != null && aNodo != undefined) {
+                                    var imgNodo = aNodo.firstElementChild; //Se crea "var" para ser utilizada abajo.
+                                }
+
+                                let trNodo = tdNodo.parentElement; //Variable para seguir subiendo de nivel en los nodos
+
+                                if (trNodo != null && trNodo != undefined) {
+                                    let tBodyNodo = trNodo.parentElement;
+
+                                    if (tBodyNodo != null && tBodyNodo != undefined) {
+                                        let tableNodo = tBodyNodo.parentElement;
+
+                                        if (tableNodo != null && tableNodo != undefined) {
+
+                                            let divNodo = tableNodo.parentElement;
+
+                                            if (divNodo != null && divNodo != undefined) {
+                                                let nodoEncabezado = divNodo.firstElementChild;
+                                                let encabezado = nodoEncabezado.innerHTML;
+
+                                                //Set el atributo a la imagen, para que cada item tenga identificado a que nodo pertenece.
+                                                if (imgNodo != null && imgNodo != undefined) {
+                                                    imgNodo.setAttribute('data-encabezado', encabezado);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }//FIN: Ifs validar nodos vacios.
+
                         });//FIN: FOREACH = recorrido de la tabla.
 
                     } else {
@@ -177,20 +219,62 @@ function CargarCatalogo(pFirebaseDB) {
 Esta funcion toma la imagen a la que se le hace un click,
 luego toma la etiqueta de imagen y le agrega al source, la imagen que se seleccionó.
 Finalmente muestra el modal.
-El modal tiene un boton para cerrar el modal.
 */
 function MostrarPopUp(e) {
     try {
         //Esta funcion evita que la pantalla se mueva hacia el TOP, cuando se hacer click en una
         //imagen y se muestra el Modal (evento ajax).
-        event.preventDefault();
+        // event.preventDefault(); //-> Se debe utilizar, solamente si el enlace tiene una referencia vacia. EJEM: href="#"
 
-        //Toma el valor del tag "alt" y lo coloca en el texto del POPUP. (el texto del alt tag, es igual al codigo, valor obtenido de firebase).
+        //Toma el valor del tag "alt" y lo coloca en el texto del POPUP. (el texto del alt tag, es igual al codigo del articulo, valor obtenido de firebase).
         $('.tituloIncrustado').text("Código: " + $(e).find('img').attr('alt'));
         $('.imagenIncrustada').attr('src', $(e).find('img').attr('src'));
+
+        document.querySelector('.imagenIncrustada').setAttribute('alt', $(e).find('img').attr('alt')); //Asigna el codigo del articulo, al atributo de la imagen "alt".
+        document.querySelector('.imagenIncrustada').setAttribute('data-encabezado', $(e).find('img').attr('data-encabezado')); //Asigna el atributo que guarda el encabezado.
+
         $('#modalImagen').modal('show');
 
     } catch (ex) {
         uEscribirError(arguments, ex);
     }
 }//FIN: MostrarPopUp
+
+//Escribe un mensaje en Analytics, cuando se haga un click en la zona de enviar mensaje por Email.
+function SolicitarCatalogoEmail() {
+    try {
+        let itemID = document.querySelector('.imagenIncrustada').getAttribute('alt');
+        let itemEncabezado = document.querySelector('.imagenIncrustada').getAttribute('data-encabezado');
+
+        let asunto = "Solicitid de artículo -> Sección: " + itemEncabezado + ". ID: " + itemID;
+        let mensaje = "Hola, quisiera solicitar el artículo: " + itemID + ", de la sección: " + itemEncabezado + ".";
+        let url = "mailto:fotos-rodriguez@hotmail.com?subject=" + asunto + "&body=" + mensaje;
+        window.location.href = url;
+
+        uEscribirEventoAccion("Click solicitud catalogo gruadacion email; ID:" + itemID + "; Ecabezado:" + itemEncabezado)
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+}//FIN: SolicitarCatalogoEmail
+
+//Escribe un mensaje en Analytics, cuando se haga un click en la zona de enviar mensaje por whatsapp.
+function SolicitarCatalogoWhatsapp() {
+    try {
+        let itemID = document.querySelector('.imagenIncrustada').getAttribute('alt');
+        let itemEncabezado = document.querySelector('.imagenIncrustada').getAttribute('data-encabezado');
+        let mensaje = "Hola, quisiera solicitar el artículo: *" + itemID + "*, de la sección: *" + itemEncabezado + "*.";
+
+        let numTelefono = "50689788992";
+
+        /*The \s meta character in JavaScript regular expressions matches any whitespace character: spaces, tabs, newlines and Unicode spaces.
+        And the g flag tells JavaScript to replace it multiple times. If you miss it, it will only replace the first occurrence of the white space*/
+        let mensajeFormato = mensaje.replace(/\s/g, '%20');
+
+        let url = "https://wa.me/" + numTelefono + "?text=" + mensajeFormato;
+        window.open(url, '_blank');
+
+        uEscribirEventoAccion("Click solicitud catalogo gruadacion whatsapp; ID:" + itemID + "; Ecabezado:" + itemEncabezado);
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+}//FIN: SolicitarCatalogoWhatsapp

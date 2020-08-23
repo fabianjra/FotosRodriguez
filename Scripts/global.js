@@ -111,41 +111,57 @@ function clickBotonNavbar() {
     $(".navbar").toggleClass("colorNegro");
 };
 
-//Escribe un mensaje en Analytics, cuando se haga un click al enlace de facebook
+// ************************ REDIRECCION A ENLACES EXTERNOS *********************** //
+
 function ClickFacebook(pUbicacion) {
     try {
-        let mensaje = "Click ver pagina Facebook " + pUbicacion;
+        let url = "https://www.facebook.com/fotosguapiles/";
+        window.open(url, '_blank');
+
+        let mensaje = "Click ver pagina Facebook en: " + pUbicacion;
         uEscribirEventoAccion(mensaje)
     } catch (ex) {
         uEscribirError(arguments, ex);
     }
 }
 
-//Escribe un mensaje en Analytics, cuando se haga un click al enlace
-function ClickWhatsappFooter() {
+function ClickWhatsappGeneral() {
     try {
-        let mensaje = "Click enviar mensaje Whastsapp footer";
-        uEscribirEventoAccion(mensaje)
+        let numTelefono = "50689788992";
+        let mensaje = "Hola, estoy interesado en información sobre fotos y productos";
+
+        /*The \s meta character in JavaScript regular expressions matches any whitespace character: spaces, tabs, newlines and Unicode spaces.
+        And the g flag tells JavaScript to replace it multiple times. If you miss it, it will only replace the first occurrence of the white space*/
+        let mensajeFormato = mensaje.replace(/\s/g, '%20');
+
+        let url = "https://wa.me/" + numTelefono + "?text=" + mensajeFormato;
+        window.open(url, '_blank');
+
+        uEscribirEventoAccion( "Click enviar mensaje Whastsapp general")
     } catch (ex) {
         uEscribirError(arguments, ex);
     }
 }
 
-//Escribe un mensaje en Analytics, cuando se haga un click al enlace
-function ClickEmailFooter() {
+function ClickEmailGeneral() {
     try {
-        let mensaje = "Click enviar mensaje por Email footer";
-        uEscribirEventoAccion(mensaje)
+        let mensaje = "Hola, quisiera obtener información sobre fotos";
+        let asunto = "Información sobre fotos";
+        let url = "mailto:fotos-rodriguez@hotmail.com?subject=" + asunto + "&body=" + mensaje;
+        window.location.href = url;
+
+        uEscribirEventoAccion("Click enviar mensaje por Email general")
     } catch (ex) {
         uEscribirError(arguments, ex);
     }
 }
 
-//Escribe un mensaje en Analytics, cuando se haga un click al enlace
-function ClickUbicacionFooter() {
+function ClickUbicacionGeneral() {
     try {
-        let mensaje = "Click ver ubicacion footer";
-        uEscribirEventoAccion(mensaje)
+        let url = "https://goo.gl/maps/gzoDQn9V5NYZFXKy6";
+        window.open(url, '_blank');
+
+        uEscribirEventoAccion("Click ver ubicacion general")
     } catch (ex) {
         uEscribirError(arguments, ex);
     }
