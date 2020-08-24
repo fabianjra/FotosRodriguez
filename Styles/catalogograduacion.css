@@ -19,6 +19,11 @@
     display: block !important;
 }
 
+/* Tamanio del titulo de footer del modal */
+#lblTituloFooter{
+    font-size: larger;
+}
+
 /*Solo para tamaños de 768px o mas (momento al usar COL-SM)*/
 @media (min-width: 768px){
 

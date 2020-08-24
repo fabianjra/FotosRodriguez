@@ -259,13 +259,13 @@ function SolicitarCatalogoEmail() {
 
         //Si el nombre contiene texto, lo agrega como nombre de cliente al mensaje y lo guarda en localstorage (si ya existe uno, lo reescribe en local).
         if (uTrim(nombre) != "") {
-            asunto = "Solicitid de artículo de " + nombre + " -> ID: " + itemID + ". Sección: " + itemEncabezado;
-            mensaje = "Hola, soy " + nombre + " y quisiera solicitar el artículo: " + itemID + ", de la sección: " + itemEncabezado + ".";
+            asunto = "Solicitid de artículo de " + nombre + " -> ID: " + itemID + ". Apartado: " + itemEncabezado;
+            mensaje = "Hola, soy " + nombre + " y quisiera solicitar el artículo: " + itemID + ", del apartado: " + itemEncabezado + ".";
 
             localStorage.setItem('nombreUsuario', nombre); //Guarda el nombre del usuario, para seguirlo usando en futuras solicitudes.
         } else {
-            asunto = "Solicitid de artículo -> ID: " + itemID + ". Sección: " + itemEncabezado;
-            mensaje = "Hola, quisiera solicitar el artículo: " + itemID + ", de la sección: " + itemEncabezado + ".";
+            asunto = "Solicitid de artículo -> ID: " + itemID + ". Apartado: " + itemEncabezado;
+            mensaje = "Hola, quisiera solicitar el artículo: " + itemID + ", del apartado: " + itemEncabezado + ".";
         }
 
         let url = "mailto:fotos-rodriguez@hotmail.com?subject=" + asunto + "&body=" + mensaje;
@@ -287,11 +287,11 @@ function SolicitarCatalogoWhatsapp() {
 
         //Si el nombre contiene texto, lo agrega como nombre de cliente al mensaje y lo guarda en localstorage (si ya existe uno, lo reescribe en local).
         if (uTrim(nombre) != "") {
-            mensaje = "Hola, soy " + nombre + " y quisiera solicitar el artículo: *" + itemID + "*, de la sección: *" + itemEncabezado + "*.";
+            mensaje = "Hola, soy " + nombre + " y quisiera solicitar el artículo: *" + itemID + "*, del apartado: *" + itemEncabezado + "*.";
             
             localStorage.setItem('nombreUsuario', nombre); //Guarda el nombre del usuario, para seguirlo usando en futuras solicitudes.
         } else {
-            mensaje = "Hola, quisiera solicitar el artículo: *" + itemID + "*, de la sección: *" + itemEncabezado + "*.";
+            mensaje = "Hola, quisiera solicitar el artículo: *" + itemID + "*, del apartado: *" + itemEncabezado + "*.";
         }
 
         let numTelefono = "50689788992";
