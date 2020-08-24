@@ -270,7 +270,7 @@
 
                     <div class="modal-header">
                         <h4 class="modal-title font-weight-bold tituloIncrustado">Titulo</h4>
-                        <button title="Cerra ventana" type="button" class="close" data-dismiss="modal" tabindex="0"
+                        <button title="Cerra ventana" type="button" class="close" data-dismiss="modal" tabindex="1"
                             aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -281,32 +281,34 @@
                     </div>
 
                     <div class="modal-footer">
+                        <form>
 
-                        <div class="row">
-                            <div class="col-12 pl">
-                                <span>Solicitar el artículo por:</span>
-                            </div>
+                            <div class="form-group row">
+                                <label for="txtNombre" class="col-sm-4 col-form-label">Nombre:</label>
 
-                            <div class="col-12">
+                                <div class="col-sm-8 input-group">
+                                    <input title="Ingresar tu nombre" id="txtNombre" type="text" class="form-control"
+                                        placeholder="Tu nombre (opcional)" tabindex="2">
 
-                                <div class="float-left divTxtNombre input-group form-group">
-                                    <input title="Ingresar tu nombre" id="txtNombre" tabindex="1" type="text"
-                                        class="form-control" placeholder="Tu nombre (opcional)">
-  
                                     <div class="input-group-prepend">
-                                        <span title="Borrar nombre" class="input-group-text cursorPointer" onclick="BorrarTexto()"><i class="fa fa-times"></i></span>
+                                        <span title="Borrar nombre" class="input-group-text cursorPointer"
+                                            onclick="BorrarTexto()" tabindex="3"><i class="fa fa-times"></i></span>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="float-right">
-                                    <button title="Solicitar por email" type="button" class="btn btn-info" tabindex="2"
+                            <div class="form-group row">
+                                <label for="inputPassword" class="col-sm-4 col-form-label">Solicitar por:</label>
+
+                                <div class="col-sm-8 text-right">
+                                    <button title="Solicitar por email" type="button" class="btn btn-info" tabindex="4"
                                         onclick="SolicitarCatalogoEmail()">Email</button>
                                     <button title="Solicitar por whatsapp" type="button" class="btn btn-info"
-                                        tabindex="3" onclick="SolicitarCatalogoWhatsapp()">Whatsapp</button>
+                                        tabindex="5" onclick="SolicitarCatalogoWhatsapp()">Whatsapp</button>
                                 </div>
-
                             </div>
-                        </div>
+
+                        </form>
                     </div>
                     <!-- FIN FOOTER MODAL -->
 

@@ -14,7 +14,7 @@
     font-weight: bold;
 }
 
-/* Los items en el footer quedan con espacios a los lados, se quita utilizando block para abarcar todo el espacio */
+/* Los items en el footer quedan con espacios a los lados (mucho al lado izquierdo), se usa block para abarcar todo el espacio */
 .modal-footer{
     display: block !important;
 }
@@ -26,46 +26,4 @@
     .dataTables_filter > label{
         float: right !important;
       }
-}
-
-/*Solo para tamaños de (cantidadPixeles)px o mas (momento al usar col-md) */
-@media (min-width: 526px){
-
-    /* Se debe ajustar la anchura del campo de texto, para hacerlo mas pequenio */
-    .divTxtNombre{
-        width: 55%;
-    }
-}
-
-/*Solo para tamaños de (cantidadPixeles)px o menos (momento desbordarse el campo de texto de nombre, por encima de los botones del modal) */
-@media (max-width: 525px){
-
-    /* Se debe ajustar la anchura del campo de texto, para hacerlo mas pequenio */
-    .divTxtNombre{
-        width: 50%;
-    }
-}
-
-@media (max-width: 430px){
-
-    /* Se debe ajustar la anchura del campo de texto, para hacerlo mas pequenio */
-    .divTxtNombre{
-        width: 40%;
-    }
-}
-
-@media (max-width: 360px){
-
-    /* Se debe ajustar la anchura del campo de texto, para hacerlo mas pequenio */
-    .divTxtNombre{
-        width: 30%;
-    }
-}
-
-@media (max-width: 315px){
-
-    /* Se quita el campo de texot porque ya no cabe */
-    .divTxtNombre{
-        display: none;
-    }
 }
