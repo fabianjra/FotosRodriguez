@@ -51,7 +51,7 @@ function uFormatoColonNoDecimales(pValor) {
     try {
         let montoSinFormato = uRemoverSignos(pValor);
         montoSinFormato = uRemoverCerosIzquierda(montoSinFormato);
-        
+
         let cantMonto = montoSinFormato.length;
         let montoFinal = "0";
 
@@ -156,7 +156,7 @@ function uRemoverCerosIzquierda(pValor) {
     let primerCaracter = pValor.substr(0, 1);
     let montoFinal = pValor;
 
-    while (primerCaracter == 0){
+    while (primerCaracter == 0) {
         montoFinal = montoFinal.substring(1);
         primerCaracter = montoFinal.substring(0, 1);
     }
@@ -165,9 +165,13 @@ function uRemoverCerosIzquierda(pValor) {
 }//FIN: uRemoverCerosIzquierda
 
 //FUNCION: Quita los espacion extremos a un strimg que se reciba como parametro.
-//RETURN: String recibido sin espacios a los extremos.
+//RETURN: String recibido sin espacios a los extremos // o un string vacio en caso de ser nulo.
 function uTrim(texto) {
-    return texto.replace(/^\s+|\s+$/gm, '');
+    if (texto != null && texto != undefined && texto != "") {
+        return texto.replace(/^\s+|\s+$/gm, '');
+    } else {
+        return "";
+    }
 }
 
 //PARAMS:

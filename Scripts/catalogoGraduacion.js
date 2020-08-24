@@ -233,6 +233,13 @@ function MostrarPopUp(e) {
         document.querySelector('.imagenIncrustada').setAttribute('alt', $(e).find('img').attr('alt')); //Asigna el codigo del articulo, al atributo de la imagen "alt".
         document.querySelector('.imagenIncrustada').setAttribute('data-encabezado', $(e).find('img').attr('data-encabezado')); //Asigna el atributo que guarda el encabezado.
 
+        //En caso de que exista un nombre de usaurio guardado en localStorate, cargarlo en el campo de texto.
+        let nombre = localStorage.getItem('nombreUsuario');
+
+        if (uTrim(nombre) != "") {
+            document.getElementById('txtNombre').value = nombre;
+        }
+
         $('#modalImagen').modal('show');
 
     } catch (ex) {
@@ -243,11 +250,24 @@ function MostrarPopUp(e) {
 //Escribe un mensaje en Analytics, cuando se haga un click en la zona de enviar mensaje por Email.
 function SolicitarCatalogoEmail() {
     try {
+        let nombre = document.getElementById('txtNombre').value;
         let itemID = document.querySelector('.imagenIncrustada').getAttribute('alt');
         let itemEncabezado = document.querySelector('.imagenIncrustada').getAttribute('data-encabezado');
 
-        let asunto = "Solicitid de artículo -> Sección: " + itemEncabezado + ". ID: " + itemID;
-        let mensaje = "Hola, quisiera solicitar el artículo: " + itemID + ", de la sección: " + itemEncabezado + ".";
+        let asunto = "";
+        let mensaje = "";
+
+        //Si el nombre contiene texto, lo agrega como nombre de cliente al mensaje y lo guarda en localstorage (si ya existe uno, lo reescribe en local).
+        if (uTrim(nombre) != "") {
+            asunto = "Solicitid de artículo de " + nombre + " -> ID: " + itemID + ". Sección: " + itemEncabezado;
+            mensaje = "Hola, soy " + nombre + " y quisiera solicitar el artículo: " + itemID + ", de la sección: " + itemEncabezado + ".";
+
+            localStorage.setItem('nombreUsuario', nombre); //Guarda el nombre del usuario, para seguirlo usando en futuras solicitudes.
+        } else {
+            asunto = "Solicitid de artículo -> ID: " + itemID + ". Sección: " + itemEncabezado;
+            mensaje = "Hola, quisiera solicitar el artículo: " + itemID + ", de la sección: " + itemEncabezado + ".";
+        }
+
         let url = "mailto:fotos-rodriguez@hotmail.com?subject=" + asunto + "&body=" + mensaje;
         window.location.href = url;
 
@@ -260,9 +280,19 @@ function SolicitarCatalogoEmail() {
 //Escribe un mensaje en Analytics, cuando se haga un click en la zona de enviar mensaje por whatsapp.
 function SolicitarCatalogoWhatsapp() {
     try {
+        let nombre = document.getElementById('txtNombre').value;
         let itemID = document.querySelector('.imagenIncrustada').getAttribute('alt');
         let itemEncabezado = document.querySelector('.imagenIncrustada').getAttribute('data-encabezado');
-        let mensaje = "Hola, quisiera solicitar el artículo: *" + itemID + "*, de la sección: *" + itemEncabezado + "*.";
+        let mensaje = "";
+
+        //Si el nombre contiene texto, lo agrega como nombre de cliente al mensaje y lo guarda en localstorage (si ya existe uno, lo reescribe en local).
+        if (uTrim(nombre) != "") {
+            mensaje = "Hola, soy " + nombre + " y quisiera solicitar el artículo: *" + itemID + "*, de la sección: *" + itemEncabezado + "*.";
+            
+            localStorage.setItem('nombreUsuario', nombre); //Guarda el nombre del usuario, para seguirlo usando en futuras solicitudes.
+        } else {
+            mensaje = "Hola, quisiera solicitar el artículo: *" + itemID + "*, de la sección: *" + itemEncabezado + "*.";
+        }
 
         let numTelefono = "50689788992";
 
@@ -278,3 +308,13 @@ function SolicitarCatalogoWhatsapp() {
         uEscribirError(arguments, ex);
     }
 }//FIN: SolicitarCatalogoWhatsapp
+
+function BorrarTexto() {
+    try {
+        document.getElementById('txtNombre').value = '';
+
+        localStorage.removeItem('nombreUsuario'); //Borra el nombre del usuario.
+    } catch (ex) {
+        uEscribirError(arguments, ex);
+    }
+}

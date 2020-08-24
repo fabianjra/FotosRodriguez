@@ -270,7 +270,7 @@
 
                     <div class="modal-header">
                         <h4 class="modal-title font-weight-bold tituloIncrustado">Titulo</h4>
-                        <button title="Cerra ventana" type="button" class="close" data-dismiss="modal"
+                        <button title="Cerra ventana" type="button" class="close" data-dismiss="modal" tabindex="0"
                             aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -283,16 +283,26 @@
                     <div class="modal-footer">
 
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-12 pl">
                                 <span>Solicitar el artículo por:</span>
                             </div>
 
                             <div class="col-12">
+
+                                <div class="float-left divTxtNombre input-group form-group">
+                                    <input title="Ingresar tu nombre" id="txtNombre" tabindex="1" type="text"
+                                        class="form-control" placeholder="Tu nombre (opcional)">
+  
+                                    <div class="input-group-prepend">
+                                        <span title="Borrar nombre" class="input-group-text cursorPointer" onclick="BorrarTexto()"><i class="fa fa-times"></i></span>
+                                    </div>
+                                </div>
+
                                 <div class="float-right">
-                                    <button title="Solicitar por email" type="button" class="btn btn-info"
+                                    <button title="Solicitar por email" type="button" class="btn btn-info" tabindex="2"
                                         onclick="SolicitarCatalogoEmail()">Email</button>
                                     <button title="Solicitar por whatsapp" type="button" class="btn btn-info"
-                                        onclick="SolicitarCatalogoWhatsapp()">Whatsapp</button>
+                                        tabindex="3" onclick="SolicitarCatalogoWhatsapp()">Whatsapp</button>
                                 </div>
 
                             </div>
