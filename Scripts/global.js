@@ -3,6 +3,10 @@ $(document).ready(function () {
     CargarGoolgeAnalytics();
 });
 
+//FUNCION: Accion a realizar cuando ya se hayan cargado todos los elementos de la pagina.
+$(window).on('load', function () {
+});
+
 //Funcion que consulta la pagina para enviarla a google Analytics.
 function CargarGoolgeAnalytics() {
     try {
@@ -58,6 +62,7 @@ function ObtenerPaginaActual() {
 
         AsignarNavbarPaginaActual(nombreCorto);
 
+        OcultarBotonFlotante(); //Oculta el boton flotante para subir pagina, solo cuando ya se este colocado el scroll en el TOP.
     } catch (ex) {
         uEscribirError(arguments, ex);
     }
@@ -187,6 +192,14 @@ $(window).scroll(function (e) {
         $(".btnFlotanteTop").fadeOut(300);
     }
 });
+
+//FUNCION: Si se esta posionado sobre el TOP de la pagina, oculta el boton de subir.
+function OcultarBotonFlotante() {
+    if ($(this).scrollTop() == 0) {
+        let botonFloat = document.querySelector('.btnFlotanteTop');
+        botonFloat.classList.add("displayOcultar");
+    }
+}
 
 // ************************ SIN USO *********************** //
 

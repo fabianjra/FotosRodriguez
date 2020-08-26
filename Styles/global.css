@@ -107,4 +107,8 @@ div > p > a:hover{
       width: 50px;
   }
 
+  .displayOcultar{
+      display: none;
+  }
+
   /***** FIN: ESTILOS PARA EL BOTON FLOTANTE GO TOP *****/
