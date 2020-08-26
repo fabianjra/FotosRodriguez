@@ -238,14 +238,6 @@ function CargarCatalogo(pFirebaseDB) {
                 $('#DataTables_Table_' + i + '_wrapper').children().eq(2).children().eq(0).removeClass('col-md-7');
             }
 
-            //*********** SIN USO, SE DEBE HACER CON BOTON ***********//
-            //Sube el scroll en caso de cambiar de pagina
-            // $('.tablaScrollUp').on('page.dt', function () {
-            //     $('html, body').animate({
-            //         scrollTop: $(".dataTables_wrapper").offset().top
-            //     }, 'slow');
-            // });
-
         });//FIN: pFirebaseDB.on (lectura de tabla padre, Catalogo).
 
     } catch (ex) {

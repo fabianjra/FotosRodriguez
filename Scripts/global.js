@@ -137,7 +137,7 @@ function ClickWhatsappGeneral() {
         let url = "https://wa.me/" + numTelefono + "?text=" + mensajeFormato;
         window.open(url, '_blank');
 
-        uEscribirEventoAccion( "Click enviar mensaje Whastsapp general")
+        uEscribirEventoAccion("Click enviar mensaje Whastsapp general")
     } catch (ex) {
         uEscribirError(arguments, ex);
     }
@@ -167,6 +167,26 @@ function ClickUbicacionGeneral() {
     }
 }
 
+// ********************** OTRAS FUNCIONES ********************* //
+
+//Sube el scroll de la pagina al Top.
+function GoTopPage() {
+    $("html, body").animate({
+        scrollTop: 0
+    }, "slow");
+
+    return false;
+}
+
+//FUNCION: Permite saber cuando el scroll de la pagina esta al Top o no.
+//Permite mostrar y ocultar el boton con efecto desvanecer.
+$(window).scroll(function (e) {
+    if ($(this).scrollTop() > 0) {
+        $(".btnFlotanteTop").fadeIn(300);
+    } else {
+        $(".btnFlotanteTop").fadeOut(300);
+    }
+});
 
 // ************************ SIN USO *********************** //
 

@@ -93,3 +93,18 @@ div > p > a:hover{
 
 
 /******************************************************************************/
+
+/***** ESTILOS PARA EL BOTON FLOTANTE GO TOP *****/
+
+.btnFlotanteTop{
+    position:fixed;
+    bottom: 65px;
+    right:30px;
+    z-index: 100;
+  }
+
+  .imgGoTop{
+      width: 50px;
+  }
+
+  /***** FIN: ESTILOS PARA EL BOTON FLOTANTE GO TOP *****/
