@@ -98,9 +98,9 @@ function CargarPrecios(pFirebaseDB) {
 
                                 resTag.innerHTML += `
                                 <tr>
-                                    <td class="text-center align-middle">${item.nombre}</td>
-                                    <td class="text-center align-middle">${uFormatoColonNoDecimales(item.precio)}</td>
-                                    <td class="text-left">${item.descripcion}</td>
+                                    <td class="text-center align-middle pt-3 pb-3">${item.nombre}</td>
+                                    <td class="text-center align-middle pt-3 pb-3">${uFormatoColonNoDecimales(item.precio)}</td>
+                                    <td class="text-left pt-3 pb-3">${item.descripcion}</td>
                                 </tr>`
 
                             } else if (nombreTabla == TABLA_IMAGENES_ARTICULOS) {
