@@ -1,0 +1,16 @@
+/* Cambiar el color de los enlaces del TAB */
+.nav-tabs .nav-link{
+    color: #17a2b8;
+}
+
+/* Enlace del TAB seleccioando en negrita */
+.nav-tabs .nav-link.active{
+    font-weight: bold;
+}
+
+/* 1rem = mt-3 y/o mt-3 en boostrap */
+.lineaSeparadora{
+    border-bottom: 1px solid #dee2e6;
+    margin-top: 1rem; 
+    margin-bottom: 1rem;
+}

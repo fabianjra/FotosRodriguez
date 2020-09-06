@@ -83,8 +83,8 @@ function uFormatoColonNoDecimales(pValor) {
                 break;
 
             case 6:
-                parte1 = montoSinFormato.substring(0, 2);
-                parte2 = montoSinFormato.substring(2, 5);
+                parte1 = montoSinFormato.substring(0, 3);
+                parte2 = montoSinFormato.substring(3, 6);
                 montoFinal = parte1 + "," + parte2;
 
                 montoFinal = uAgregarSimboloColonDecimales(montoFinal);
