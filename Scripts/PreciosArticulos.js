@@ -98,8 +98,8 @@ function CargarPrecios(pFirebaseDB) {
 
                                 resTag.innerHTML += `
                                 <tr>
-                                    <td class="text-center">${item.nombre}</td>
-                                    <td class="text-center">${uFormatoColonNoDecimales(item.precio)}</td>
+                                    <td class="text-center align-middle">${item.nombre}</td>
+                                    <td class="text-center align-middle">${uFormatoColonNoDecimales(item.precio)}</td>
                                     <td class="text-left">${item.descripcion}</td>
                                 </tr>`
 
